@@ -1,0 +1,91 @@
+/*
+
+    ZebraDatePicker: a lightweight jQuery date picker plugin
+
+    Twitter Bootstrap theme
+
+    copyright (c) 2011 - 2013 Stefan Gabos
+    http://stefangabos.ro/jquery/zebra-datepicker/
+
+*/
+
+.ZebraDatePicker *,
+.ZebraDatePicker *:after,
+.ZebraDatePicker *:before  { box-sizing: content-box !important }
+
+.ZebraDatePicker           { position: absolute; background: #FFF; border: 1px solid #999; display: none; z-index: 100; padding: 5px }
+
+.ZebraDatePicker *         { margin: 0; padding: 0; color: @colorFont; background: transparent; border: none }
+
+/* = GLOBALS
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker table                      { border-collapse: collapse; border-spacing: 0 }
+
+.ZebraDatePicker td,
+.ZebraDatePicker th                         { text-align: center; padding: 5px 0; vertical-align: middle; }
+
+.ZebraDatePicker td                         { cursor: pointer }
+
+.ZebraDatePicker .dp_daypicker,
+.ZebraDatePicker .dp_monthpicker,
+.ZebraDatePicker .dp_yearpicker             { margin-top: 3px }
+
+.ZebraDatePicker .dp_daypicker td,
+.ZebraDatePicker .dp_daypicker th,
+.ZebraDatePicker .dp_monthpicker td,
+.ZebraDatePicker .dp_yearpicker td         { width: 30px }
+
+.ZebraDatePicker,
+.ZebraDatePicker .dp_header .dp_hover,
+.ZebraDatePicker td.dp_selected,
+.ZebraDatePicker .dp_footer .dp_hover,
+.ZebraDatePicker td.dp_hover               { border-radius: 5px }
+
+/* = HEADER
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker .dp_header td             { }
+
+.ZebraDatePicker .dp_header .dp_previous,
+.ZebraDatePicker .dp_header .dp_next       { width: 30px }
+
+.ZebraDatePicker .dp_header .dp_caption    { font-weight: bold }
+.ZebraDatePicker .dp_header .dp_hover      { background: @colorNeutral; color: @colorFont }
+.ZebraDatePicker .dp_header .dp_blocked    { color: @colorNeutral; cursor: default }
+
+/* = DATEPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker .dp_daypicker th              { font-weight: bold }
+.ZebraDatePicker td.dp_not_in_month            { color: @colorNeutral; cursor: default }
+.ZebraDatePicker td.dp_not_in_month_selectable { }
+.ZebraDatePicker td.dp_weekend                 { }
+.ZebraDatePicker td.dp_weekend_disabled        { color: @colorNeutral; cursor: default }
+.ZebraDatePicker td.dp_selected                { background: @colorAccent; color: #FFF !important }
+.ZebraDatePicker td.dp_week_number             { cursor: text; font-weight: bold }
+
+/* = MONTHPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker .dp_monthpicker td    { width: 33% }
+
+/* = YEARPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker .dp_yearpicker td     { width: 33% }
+
+/* = FOOTER
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker .dp_footer            { margin-top: 3px }
+
+/* = SOME MORE GLOBALS (MUST BE LAST IN ORDER TO OVERWRITE PREVIOUS PROPERTIES)
+----------------------------------------------------------------------------------------------------------------------*/
+.ZebraDatePicker td.dp_current             { color: @colorAccent }
+.ZebraDatePicker td.dp_disabled_current    { color: @colorAccent }
+.ZebraDatePicker td.dp_disabled            { color: @colorNeutral; cursor: default }
+.ZebraDatePicker td.dp_hover               { background: @colorNeutral }
+
+/* = ICON
+----------------------------------------------------------------------------------------------------------------------*/
+button.ZebraDatePicker_Icon                { display: block; position: absolute; width: 16px; height: 16px; background-color: transparent; background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiM0NDQ0NDQiIGQ9Ik0xNjAsMjQwdjMyYzAsOC44LTcuMiwxNi0xNiwxNmgtMzJjLTguOCwwLTE2LTcuMi0xNi0xNnYtMzJjMC04LjgsNy4yLTE2LDE2LTE2aDMyQzE1Mi44LDIyNCwxNjAsMjMxLjIsMTYwLDI0MHogTTE0NCwzNTJoLTMyYy04LjgsMC0xNiw3LjItMTYsMTZ2MzJjMCw4LjgsNy4yLDE2LDE2LDE2aDMyYzguOCwwLDE2LTcuMiwxNi0xNnYtMzJDMTYwLDM1OS4yLDE1Mi44LDM1MiwxNDQsMzUyeiBNMjcyLDIyNGgtMzJjLTguOCwwLTE2LDcuMi0xNiwxNnYzMmMwLDguOCw3LjIsMTYsMTYsMTZoMzJjOC44LDAsMTYtNy4yLDE2LTE2di0zMkMyODgsMjMxLjIsMjgwLjgsMjI0LDI3MiwyMjR6IE0yNzIsMzUyaC0zMmMtOC44LDAtMTYsNy4yLTE2LDE2djMyYzAsOC44LDcuMiwxNiwxNiwxNmgzMmM4LjgsMCwxNi03LjIsMTYtMTZ2LTMyQzI4OCwzNTkuMiwyODAuOCwzNTIsMjcyLDM1MnogTTQwMCwyMjRoLTMyYy04LjgsMC0xNiw3LjItMTYsMTZ2MzJjMCw4LjgsNy4yLDE2LDE2LDE2aDMyYzguOCwwLDE2LTcuMiwxNi0xNnYtMzJDNDE2LDIzMS4yLDQwOC44LDIyNCw0MDAsMjI0eiBNNDAwLDM1MmgtMzJjLTguOCwwLTE2LDcuMi0xNiwxNnYzMmMwLDguOCw3LjIsMTYsMTYsMTZoMzJjOC44LDAsMTYtNy4yLDE2LTE2di0zMkM0MTYsMzU5LjIsNDA4LjgsMzUyLDQwMCwzNTJ6IE0xMTIsOTZoMzJjOC44LDAsMTYtNy4yLDE2LTE2VjE2YzAtOC44LTcuMi0xNi0xNi0xNmgtMzJjLTguOCwwLTE2LDcuMi0xNiwxNnY2NEM5Niw4OC44LDEwMy4yLDk2LDExMiw5NnogTTUxMiwxMjh2MzIwYzAsMzUuMy0yOC43LDY0LTY0LDY0SDY0Yy0zNS4zLDAtNjQtMjguNy02NC02NFYxMjhjMC0zNS4zLDI4LjctNjQsNjQtNjRoMTZ2MTZjMCwxNy42LDE0LjQsMzIsMzIsMzJoMzJjMTcuNiwwLDMyLTE0LjQsMzItMzJWNjRoMTYwdjE2YzAsMTcuNiwxNC40LDMyLDMyLDMyaDMyYzE3LjYsMCwzMi0xNC40LDMyLTMyVjY0aDE2QzQ4My4zLDY0LDUxMiw5Mi43LDUxMiwxMjh6IE00ODAsMTkyYzAtMTcuNi0xNC4zLTMyLTMyLTMySDY0Yy0xNy42LDAtMzIsMTQuNC0zMiwzMnYyNTZjMCwxNy43LDE0LjQsMzIsMzIsMzJoMzg0YzE3LjcsMCwzMi0xNC4zLDMyLTMyVjE5MnogTTM2OCw5NmgzMmM4LjgsMCwxNi03LjIsMTYtMTZWMTZjMC04LjgtNy4yLTE2LTE2LTE2aC0zMmMtOC44LDAtMTYsNy4yLTE2LDE2djY0QzM1Miw4OC44LDM1OS4yLDk2LDM2OCw5NnoiLz48L3N2Zz4=); text-indent: -9000px; border: none; cursor: pointer; padding: 0; line-height: 0; vertical-align: top }
+button.ZebraDatePicker_Icon_Disabled       { background-image: none; }
+
+/* don't set vertical margins! */
+button.ZebraDatePicker_Icon                { margin: 0 0 0 3px }
+button.ZebraDatePicker_Icon_Inside         { margin: 0 10px 0 0 }

@@ -1,0 +1,31 @@
+{
+	"livereloadPort": 35755,
+	"views": {
+		"front": {
+			"less": {
+				"minify": false
+			},
+			"js": {
+				"minify": false,
+				"modules": [
+					"Browser"
+				]
+			},
+			"views": [
+				"resources/views/front/**/*.php"
+			]
+		},
+		"admin": {
+			"less": {
+				"minify": false
+			},
+			"js": {
+				"minify": false,
+				"modules": []
+			},
+			"views": [
+				"resources/views/admin/**/*.php"
+			]
+		}
+	}
+}

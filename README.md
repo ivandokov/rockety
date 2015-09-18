@@ -1,12 +1,19 @@
-# Grunt
+# Dokov Grunt
 
-This is my Grunt setup for starting new sites.  
-Usually I use it in Laravel
+This is a really flexible ready to use Grunt setup.  
+It is made super easu to use with a single JSON based configuration file.  
+You do not have to edit the gruntfile.js and mess with JavaScript.  
+All you need to do is open ```gruntfile.cfg``` and change the settings.  
 
-## Config
+## What is included
 
-All source files are in ```src``` folder and the grunt setup is configured by ```gruntfile.cfg``` file.  
-The file is self explanatory, I guess.
+This setup comes with:  
+* LESS compiler  
+* CSS minifier  
+* CSS Autoprefixer  
+* JS validation (JSHint)  
+* JS minifier/uglifier  
+* SVG sprite compiler  
 
 ## Changelog
 

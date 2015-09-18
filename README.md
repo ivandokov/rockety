@@ -5,7 +5,7 @@ Usually I use it in Laravel
 
 ## Config
 
-All source files are in ```src``` folder and the grunt setup is configured by ```src/config.json``` file.  
+All source files are in ```src``` folder and the grunt setup is configured by ```gruntfile.cfg``` file.  
 The file is self explanatory, I guess.
 
 ## Changelog

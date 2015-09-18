@@ -235,8 +235,8 @@ module.exports = function(grunt) {
 		};
 
 		config.watch.reload_config = {
-			files: ['src/config.json'],
-			tasks: ['reload_config', 'cssmin', 'jshint', 'concat', 'uglify'],
+			files: ['gruntfile.cfg'],
+			tasks: ['reload_config', 'less', 'cssmin', 'autoprefixer', 'jshint', 'concat', 'uglify'],
 		};
 
 		return config;

@@ -4,35 +4,37 @@ module.exports = function(grunt) {
 
 	function Config() {
 
-		var config = {};
-		var views;
-		var view;
-		var livereloadPort;
-		var modules;
-		var module;
-		var cfg;
+		var cfg, config = {};
+		var view, livereloadPort, modules, module, scripts, script, allScripts = [];
 
-		cfg = grunt.file.readJSON('src/config.json');
+		cfg = grunt.file.readJSON('gruntfile.cfg');
 
+		/**
+		* Fix paths to JS modules and scripts
+		*/
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
-			modules = cfg.views[view].js.modules;
-
+			/**
+			* Fix modules paths
+			*/
+			modules = cfg.views[view].js.modules || [];
 			for ( module in modules ) {
 				if ( ! modules.hasOwnProperty(module) ) continue;
-
 				modules[module] = 'src/modules/js/' + modules[module] + '.js';
 			}
-
-			if ( grunt.file.exists('src/'+ view +'/js/scripts.js') )
-				modules.push('src/'+ view +'/js/scripts.js');
-
 			cfg.views[view].js.modules = modules;
-		}
 
-		views = cfg.views;
-		livereloadPort = cfg.livereloadPort || 35730;
+			/**
+			* Fix scriptts paths
+			*/
+			scripts = cfg.views[view].js.scripts || [];
+			for ( script in scripts ) {
+				if ( ! scripts.hasOwnProperty(script) ) continue;
+				scripts[script] = 'src/' + view + '/js/' + scripts[script] + '.js';
+			}
+			cfg.views[view].js.scripts = scripts;
+		}
 
 		/**
 		* JS Hint
@@ -54,13 +56,17 @@ module.exports = function(grunt) {
 				strict: true,
 				trailing: true,
 				browser: true,
-			},
-			modules: ['src/modules/js/*.js'],
+			}
 		};
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
-			config.jshint[view] = ['src/'+ view +'/js/scripts.js'];
+			if ( cfg.views[view].js.modules.length ) {
+				config.jshint['modules_'+view] = cfg.views[view].js.modules;
+			}
+			if ( cfg.views[view].js.scripts.length ) {
+				config.jshint[view] = cfg.views[view].js.scripts;
+			}
 		}
 
 
@@ -75,8 +81,24 @@ module.exports = function(grunt) {
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
+			allScripts = [];
+
+			modules = cfg.views[view].js.modules;
+			for ( module in modules ) {
+				if ( ! modules.hasOwnProperty(module) ) continue;
+				allScripts.push(modules[module]);
+			}
+
+			scripts = cfg.views[view].js.scripts;
+			for ( script in scripts ) {
+				if ( ! scripts.hasOwnProperty(script) ) continue;
+				allScripts.push(scripts[script]);
+			}
+
+			if ( ! allScripts.length ) continue;
+
 			config.concat[view] = {
-				src: views[view].js.modules,
+				src: allScripts,
 				dest: 'public/assets/'+ view +'/js/scripts.js',
 			};
 		}
@@ -132,7 +154,7 @@ module.exports = function(grunt) {
 		/**
 		* CSS Minifier
 		*/
-		config.cssmin = {};
+		config.cssmin = {files:[]};
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
@@ -171,50 +193,50 @@ module.exports = function(grunt) {
 		config.watch = {
 			options: {
 				spawn: false,
-				livereload: livereloadPort,
+				livereload: cfg.livereloadPort || 35730,
 			}
 		};
 
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
-			config.watch[view + 'css'] = {
+			config.watch[view + '_css'] = {
 				files: ['src/'+ view +'/less/*.less'],
 				tasks: ['less:'+ view, 'autoprefixer:'+ view]
 			};
 			if ( cfg.views[view].less.minify )
-				config.watch[view + 'css'].tasks.push('cssmin:'+ view);
+				config.watch[view + '_css'].tasks.push('cssmin:'+ view);
 
-			config.watch[view + 'js'] = {
+			config.watch[view + '_js'] = {
 				files: ['src/'+ view +'/js/**/*.js'],
 				tasks: ['jshint:'+ view, 'concat:'+ view]
 			};
 			if ( cfg.views[view].js.minify )
-				config.watch[view + 'js'].tasks.push('uglify:'+ view);
+				config.watch[view + '_js'].tasks.push('uglify:'+ view);
 
-			config.watch[view + 'svg'] = {
+			config.watch[view + '_svg'] = {
 				files: ['src/'+ view +'/svg/*.svg'],
 				tasks: ['svgstore:'+ view]
 			};
 
-			config.watch[view + 'views'] = {files: []};
+			config.watch[view + '_views'] = {files: []};
 			for ( var tpl in cfg.views[view].views )
-				config.watch[view + 'views'].files.push(cfg.views[view].views[tpl]);
+				config.watch[view + '_views'].files.push(cfg.views[view].views[tpl]);
 		}
 
-		config.watch.lessmodules = {
+		config.watch.less_modules = {
 			files: ['src/modules/less/*.less'],
 			tasks: ['less', 'cssmin', 'autoprefixer']
 		};
 
-		config.watch.jshintmodules = {
+		config.watch.jshint_modules = {
 			files: ['src/modules/js/*.js'],
-			tasks: ['jshint:modules', 'concat', 'uglify'],
+			tasks: ['jshint', 'concat', 'uglify'],
 		};
 
 		config.watch.reload_config = {
 			files: ['src/config.json'],
-			tasks: ['reload_config', 'cssmin', 'jshint:modules', 'concat', 'uglify'],
+			tasks: ['reload_config', 'cssmin', 'jshint', 'concat', 'uglify'],
 		};
 
 		return config;

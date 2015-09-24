@@ -17,6 +17,9 @@ This setup comes with:
 
 ## Changelog
 
+##### v1.2.0
+- Added support for SVG sprites. Take a look at the example in ```src/front/less/style.less```. It includes ```src/front/less/sprite.less``` and uses the mixing ```.svg()```. The SVG sprite mixins are in namespace ```#Sprite```.
+
 ##### v1.1.0
 - Moved and renamed the ```src/config.json``` to ```gruntfile.cfg```  
 - Added option to include multiple JavaScript files in ```src/<view>/js/``` from the ```gruntfile.cfg```.  

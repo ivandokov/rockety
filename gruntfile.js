@@ -133,18 +133,22 @@ module.exports = function(grunt) {
 
 
 		/**
-		* Autoprefixer
+		* PostCSS
 		*/
-		config.autoprefixer = {
+		config.postcss = {
 			options: {
-				browsers: ['last 2 version', 'ie 9'],
 				map: false,
+				processors: [
+					require('autoprefixer')({
+						browsers: ['last 2 versions']
+					})
+				]
 			}
 		};
 		for ( view in cfg.views ) {
 			if ( ! cfg.views.hasOwnProperty(view) ) continue;
 
-			config.autoprefixer[view] = {
+			config.postcss[view] = {
 				src: 'public/assets/'+ view +'/css/style.css',
 				dest: 'public/assets/'+ view +'/css/style.css',
 			};
@@ -202,7 +206,8 @@ module.exports = function(grunt) {
 
 			config.watch[view + '_css'] = {
 				files: ['src/'+ view +'/less/*.less'],
-				tasks: ['less:'+ view, 'autoprefixer:'+ view]
+				//tasks: ['less:'+ view, 'postcss:autoprefixer:'+ view]
+				tasks: ['less:'+ view, 'postcss:'+ view]
 			};
 			if ( cfg.views[view].less.minify )
 				config.watch[view + '_css'].tasks.push('cssmin:'+ view);
@@ -226,7 +231,7 @@ module.exports = function(grunt) {
 
 		config.watch.less_modules = {
 			files: ['src/modules/less/*.less'],
-			tasks: ['less', 'cssmin', 'autoprefixer']
+			tasks: ['less', 'cssmin', 'postcss']
 		};
 
 		config.watch.jshint_modules = {
@@ -236,7 +241,7 @@ module.exports = function(grunt) {
 
 		config.watch.reload_config = {
 			files: ['gruntfile.cfg'],
-			tasks: ['reload_config', 'less', 'cssmin', 'autoprefixer', 'jshint', 'concat', 'uglify'],
+			tasks: ['reload_config', 'less', 'cssmin', 'postcss', 'jshint', 'concat', 'uglify'],
 		};
 
 		return config;
@@ -244,13 +249,14 @@ module.exports = function(grunt) {
 
 	grunt.config.init(Config());
 
+	//grunt.loadNpmTasks('autoprefixer');
+	grunt.loadNpmTasks('grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-svgstore');
 
 	grunt.registerTask('reload_config', "Reload config", function() {

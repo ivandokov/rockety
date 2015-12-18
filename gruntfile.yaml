@@ -1,8 +1,8 @@
 livereloadPort: 35755
 options:
-    minify_css: true
-    less_map: true
-    minify_js: true
+    css_minify: true
+    css_map: true
+    js_minify: true
 dest:
     front:
         js:

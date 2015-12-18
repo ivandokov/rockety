@@ -75,7 +75,8 @@ module.exports = function (grunt) {
          */
         config.concat = {
             options: {
-                separator: ';'
+                separator: ';',
+                sourceMapStyle: 'inline'
             }
         };
         for (dest in cfg.dest) {
@@ -110,7 +111,7 @@ module.exports = function (grunt) {
          */
         config.uglify = {};
 
-        if (cfg.options.minify_js) {
+        if (cfg.options.js_minify) {
             for (dest in cfg.dest) {
                 if (!cfg.dest.hasOwnProperty(dest)) continue;
 
@@ -141,7 +142,7 @@ module.exports = function (grunt) {
          */
         config.postcss = {
             options: {
-                map: cfg.options.less_map || false,
+                map: cfg.options.css_map || false,
                 processors: [
                     require('autoprefixer')({browsers: ['last 2 versions']})
                 ]
@@ -151,7 +152,7 @@ module.exports = function (grunt) {
         /**
          * PostCSS minify
          */
-        if (cfg.options.minify_css) {
+        if (cfg.options.css_minify) {
             config.postcss.options.processors.push(require('cssnano')());
         }
 

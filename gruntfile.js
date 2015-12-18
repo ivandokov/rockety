@@ -54,7 +54,7 @@ module.exports = function (grunt) {
                 unused: false,
                 strict: true,
                 trailing: true,
-                browser: true,
+                browser: true
             }
         };
         for (dest in cfg.dest) {
@@ -99,7 +99,7 @@ module.exports = function (grunt) {
 
             config.concat[dest] = {
                 src: allScripts,
-                dest: 'public/assets/' + dest + '/js/scripts.js',
+                dest: 'public/assets/' + dest + '/js/scripts.js'
             };
         }
 
@@ -120,7 +120,7 @@ module.exports = function (grunt) {
 
                 config.uglify[dest] = {
                     src: 'public/assets/' + dest + '/js/scripts.js',
-                    dest: 'public/assets/' + dest + '/js/scripts.js',
+                    dest: 'public/assets/' + dest + '/js/scripts.js'
                 };
             }
         }

@@ -247,14 +247,7 @@ module.exports = function(grunt) {
 
 	grunt.config.init(Config());
 
-	grunt.loadNpmTasks('grunt-postcss');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-svgstore');
+	require('load-grunt-tasks')(grunt, {pattern: ['grunt-*', '@*/grunt-*']});
 
 	grunt.registerTask('reloadConfig', "Reload config", function() {
 		grunt.config.data = Config();

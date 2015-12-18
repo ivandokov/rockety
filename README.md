@@ -26,6 +26,7 @@ This setup comes with:
 - Updated [grunt-contrib-contact](https://www.npmjs.com/package/grunt-contrib-contact) to v0.5.1
 - Updated [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) to v0.11.3
 - Updated [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify) to v0.11.0
+- Updated [grunt-svgstore](https://www.npmjs.com/package/grunt-svgstore) to v0.5.0
 
 ##### v1.2.0
 - Added support for SVG sprites. Take a look at the example in ```src/front/less/style.less```. It includes ```src/front/less/sprite.less``` and uses the mixing ```.svg()```. The SVG sprite mixins are in namespace ```#Sprite```.

@@ -109,7 +109,11 @@ module.exports = function (grunt) {
         /**
          * Uglify
          */
-        config.uglify = {};
+        config.uglify = {
+            options: {
+                screwIE8: true
+            }
+        };
 
         if (cfg.options.js_minify) {
             for (dest in cfg.dest) {

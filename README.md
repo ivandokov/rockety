@@ -22,6 +22,7 @@ This setup comes with:
 - Added [grunt-postcss](https://www.npmjs.com/package/grunt-postcss)
 - Replaced deprecated [grunt-autoprefixer](https://www.npmjs.com/package/grunt-autoprefixer) with [autoprefixer](https://www.npmjs.com/package/autoprefixer)
 - Replaced [grunt-contrib-cssmin](https://www.npmjs.com/package/grunt-contrib-cssmin) with [cssnano](https://www.npmjs.com/package/cssnano)
+- Updated [grunt-contrib-less](https://www.npmjs.com/package/grunt-contrib-less) to v1.1.0
 
 ##### v1.2.0
 - Added support for SVG sprites. Take a look at the example in ```src/front/less/style.less```. It includes ```src/front/less/sprite.less``` and uses the mixing ```.svg()```. The SVG sprite mixins are in namespace ```#Sprite```.

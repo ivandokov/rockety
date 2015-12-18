@@ -1,8 +1,10 @@
 livereloadPort: 35755
+
 options:
     css_minify: true
     css_map: true
     js_minify: true
+
 dest:
     front:
         js:
@@ -11,7 +13,10 @@ dest:
             scripts:
                 - scripts
         html:
+            - public/**/*.php
+            - public/**/*.html
             - resources/views/front/**/*.php
+
     admin:
         js:
             scripts:

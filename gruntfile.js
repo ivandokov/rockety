@@ -75,8 +75,7 @@ module.exports = function (grunt) {
          */
         config.concat = {
             options: {
-                separator: ';',
-                sourceMapStyle: 'inline'
+                separator: ';'
             }
         };
         for (dest in cfg.dest) {

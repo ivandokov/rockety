@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         var cfg, config = {};
         var dest, modules, module, scripts, script, allScripts;
 
-        cfg = grunt.file.readJSON('gruntfile.cfg');
+        cfg = grunt.file.readYAML('gruntfile.yaml');
 
         /**
          * Fix paths to JS modules and scripts
@@ -236,7 +236,7 @@ module.exports = function (grunt) {
         };
 
         config.watch.config = {
-            files: ['gruntfile.cfg'],
+            files: ['gruntfile.yaml'],
             tasks: ['reload', 'less', 'postcss', 'jshint', 'concat', 'uglify']
         };
 

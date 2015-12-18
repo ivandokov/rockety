@@ -139,9 +139,7 @@ module.exports = function(grunt) {
 			options: {
 				map: false,
 				processors: [
-					require('autoprefixer')({
-						browsers: ['last 2 versions']
-					})
+					require('autoprefixer')({browsers: ['last 2 versions']})
 				]
 			}
 		};
@@ -150,7 +148,7 @@ module.exports = function(grunt) {
 
 			config.postcss[view] = {
 				src: 'public/assets/'+ view +'/css/style.css',
-				dest: 'public/assets/'+ view +'/css/style.css',
+				dest: 'public/assets/'+ view +'/css/style.css'
 			};
 		}
 
@@ -229,17 +227,17 @@ module.exports = function(grunt) {
 				config.watch[view + '_views'].files.push(cfg.views[view].views[tpl]);
 		}
 
-		config.watch.less_modules = {
+		config.watch.less = {
 			files: ['src/modules/less/*.less'],
 			tasks: ['less', 'cssmin', 'postcss']
 		};
 
-		config.watch.jshint_modules = {
+		config.watch.jshint = {
 			files: ['src/modules/js/*.js'],
 			tasks: ['jshint', 'concat', 'uglify'],
 		};
 
-		config.watch.reload_config = {
+		config.watch.reloadConfig = {
 			files: ['gruntfile.cfg'],
 			tasks: ['reload_config', 'less', 'cssmin', 'postcss', 'jshint', 'concat', 'uglify'],
 		};
@@ -249,7 +247,6 @@ module.exports = function(grunt) {
 
 	grunt.config.init(Config());
 
-	//grunt.loadNpmTasks('autoprefixer');
 	grunt.loadNpmTasks('grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -259,7 +256,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-svgstore');
 
-	grunt.registerTask('reload_config', "Reload config", function() {
+	grunt.registerTask('reloadConfig', "Reload config", function() {
 		grunt.config.data = Config();
     	console.log("Reloading config");
 	});

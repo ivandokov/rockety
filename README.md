@@ -23,7 +23,7 @@ This setup comes with:
 - Replaced deprecated [grunt-autoprefixer](https://www.npmjs.com/package/grunt-autoprefixer) with [autoprefixer](https://www.npmjs.com/package/autoprefixer)
 - Replaced [grunt-contrib-cssmin](https://www.npmjs.com/package/grunt-contrib-cssmin) with [cssnano](https://www.npmjs.com/package/cssnano)
 - Updated [grunt-contrib-less](https://www.npmjs.com/package/grunt-contrib-less) to v1.1.0
-- Updated [grunt-contrib-contact](https://www.npmjs.com/package/grunt-contrib-contact) to v0.5.1
+- Removed [grunt-contrib-contact](https://www.npmjs.com/package/grunt-contrib-contact) because [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify) can do the same. Concat was used when you develop and do not want to minify the source to see where your code come from easily, but source maps are better option.
 - Updated [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) to v0.11.3
 - Updated [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify) to v0.11.0
 - Updated [grunt-svgstore](https://www.npmjs.com/package/grunt-svgstore) to v0.5.0

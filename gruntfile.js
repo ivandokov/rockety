@@ -71,13 +71,14 @@ module.exports = function (grunt) {
 
 
         /**
-         * Concat
+         * Uglify
          */
-        config.concat = {
+        config.uglify = {
             options: {
-                separator: ';'
+                screwIE8: true
             }
         };
+
         for (dest in cfg.dest) {
             if (!cfg.dest.hasOwnProperty(dest)) continue;
 
@@ -97,32 +98,15 @@ module.exports = function (grunt) {
 
             if (!allScripts.length) continue;
 
-            config.concat[dest] = {
-                src: allScripts,
-                dest: 'public/assets/' + dest + '/js/scripts.js'
-            };
-        }
+            config.uglify[dest] = {};
+            config.uglify[dest].options = {};
 
-
-
-        /**
-         * Uglify
-         */
-        config.uglify = {
-            options: {
-                screwIE8: true
+            if (cfg.options.js_map) {
+                config.uglify[dest].options.sourceMap = true;
             }
-        };
 
-        if (cfg.options.js_minify) {
-            for (dest in cfg.dest) {
-                if (!cfg.dest.hasOwnProperty(dest)) continue;
-
-                config.uglify[dest] = {
-                    src: 'public/assets/' + dest + '/js/scripts.js',
-                    dest: 'public/assets/' + dest + '/js/scripts.js'
-                };
-            }
+            config.uglify[dest].files = {};
+            config.uglify[dest].files['public/assets/' + dest + '/js/scripts.js'] = allScripts;
         }
 
 
@@ -214,7 +198,7 @@ module.exports = function (grunt) {
 
             config.watch[dest + '_js'] = {
                 files: ['src/' + dest + '/js/**/*.js'],
-                tasks: ['jshint:' + dest, 'concat:' + dest, 'uglify:' + dest]
+                tasks: ['jshint:' + dest, 'uglify:' + dest]
             };
 
             config.watch[dest + '_svg'] = {
@@ -236,12 +220,12 @@ module.exports = function (grunt) {
 
         config.watch.js = {
             files: ['src/modules/js/*.js'],
-            tasks: ['jshint', 'concat', 'uglify']
+            tasks: ['jshint', 'uglify']
         };
 
         config.watch.config = {
             files: ['gruntfile.yaml'],
-            tasks: ['reload', 'less', 'postcss', 'jshint', 'concat', 'uglify']
+            tasks: ['reload', 'less', 'postcss', 'jshint', 'uglify']
         };
 
         return config;
@@ -257,6 +241,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('config', 'Print config', function () {
+        var opt;
+        if (opt = grunt.option('config')) {
+            console.log(JSON.stringify(Config()[opt], null, 4));
+            return;
+        }
         console.log(JSON.stringify(Config(), null, 4));
     });
 

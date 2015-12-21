@@ -3,10 +3,10 @@
 (function($) {
 'use strict';
 
-// var Something = function() {};
+var HelloWorld = function () {
+    console.log('Hello world!');
+};
 
-// $(function() {
-// new Something();
-// });
+new HelloWorld();
 
 })(jQuery);

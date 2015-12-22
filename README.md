@@ -41,6 +41,3 @@ This setup comes with:
 
 ##### v1.0.0
 Initial version
-
-## Known bugs
-* When Grunt watch is running and you change the option minify_js to false a warning will be displayed in the console. Ignore it, because it doesn't break anything.

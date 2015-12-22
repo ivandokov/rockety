@@ -10,8 +10,10 @@ dest:
         js:
             modules:
                 - Browser
+
             scripts:
                 - scripts
+
         html:
             - public/**/*.php
             - public/**/*.html
@@ -21,5 +23,6 @@ dest:
         js:
             scripts:
                 - scripts
+
         html:
             - resources/views/admin/**/*.php

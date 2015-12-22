@@ -1,12 +1,12 @@
 /*global console:false, jQuery:false*/
 
-(function($) {
+(function() {
 'use strict';
 
-var HelloWorld = function () {
-    console.log('Hello world!');
-};
+//var HelloWorld = function () {
+//    console.log('Hello world!');
+//};
+//
+//new HelloWorld();
 
-new HelloWorld();
-
-})(jQuery);
+})();

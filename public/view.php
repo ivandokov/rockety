@@ -20,7 +20,7 @@
 
 	</div>
 
-	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<!--	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>-->
 	<script src="assets/front/js/scripts.js"></script>
 
 	<?php /*

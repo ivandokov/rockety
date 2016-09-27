@@ -260,6 +260,8 @@ module.exports = function (grunt) {
         console.log(JSON.stringify(Config(), null, 4));
     });
 
+    grunt.registerTask('build', ['less', 'postcss', 'jshint', 'uglify']);
+
     grunt.registerTask('default', ['watch']);
 
 };

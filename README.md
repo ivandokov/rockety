@@ -17,6 +17,11 @@ This setup comes with:
 
 ## Changelog
 
+##### v2.1.0
+- Stopped JSHint of breaking the build
+- Declated all js modules as globals for JSHint so it doesn't complain
+- Added `grunt build` task
+
 ##### v2.0.0
 - Added [load-grunt-tasks](https://www.npmjs.com/package/load-grunt-tasks)
 - Added [grunt-postcss](https://www.npmjs.com/package/grunt-postcss)

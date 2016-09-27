@@ -40,6 +40,17 @@ module.exports = function (grunt) {
          */
         config.jshint = {
             options: {
+                globals: {
+                    console: true,
+                    jQuery: true,
+                    Browser: true,
+                    HashNavigator: true,
+                    Popup: true,
+                    SelectDecorator: true,
+                    SwipeDetector: true,
+                    Tabber: true,
+                },
+                force: true,
                 bitwise: true,
                 camelcase: true,
                 eqeqeq: true,

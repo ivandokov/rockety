@@ -52,19 +52,17 @@ module.exports = function (grunt) {
                 },
                 force: true,
                 bitwise: true,
-                camelcase: true,
                 eqeqeq: true,
                 forin: true,
-                latedef: 'nofunc',
-                newcap: true,
                 noarg: true,
-                noempty: true,
                 nonbsp: true,
-                quotmark: 'single',
+                notypeof: true,
                 undef: true,
                 unused: false,
                 strict: true,
                 trailing: true,
+                debug: true,
+                latedef: 'nofunc',
                 browser: true
             }
         };

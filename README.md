@@ -21,6 +21,7 @@ This setup comes with:
 - Stopped JSHint of breaking the build
 - Declated all js modules as globals for JSHint so it doesn't complain
 - Added `grunt build` task
+- Merged PR [#1](https://github.com/ivandokov/grunt/pull/1) which fixes shapes.svg bug
 
 ##### v2.0.0
 - Added [load-grunt-tasks](https://www.npmjs.com/package/load-grunt-tasks)

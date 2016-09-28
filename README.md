@@ -1,6 +1,6 @@
-# Dokov Grunt
+# Rockety
 
-This is a really flexible ready to use Grunt setup.  
+This is a really flexible ready to use front-end development toolbox based on Grunt.  
 You do not have to edit the gruntfile.js and mess with JavaScript.  
 It is made super easy to use with a single YAML configuration file.  
 All you need to do is open ```gruntfile.yaml``` and change the settings.  
@@ -16,6 +16,9 @@ This setup comes with:
 * SVG symbols compiler  
 
 ## Changelog
+
+##### v2.2.0
+- Renamed the project to Rockety
 
 ##### v2.1.0
 - Stopped JSHint of breaking the build

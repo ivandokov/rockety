@@ -1,0 +1,20 @@
+- source: src/front
+  dest: public/assets/front
+  options:
+    css:
+      map: true
+      minify: true
+      styles:
+        less: style.less
+        sass: style.scss
+    js:
+      map: true
+      minify: true
+      vendor:
+        - rockety/js/Browser.js
+      scripts:
+        - scripts.js
+    watch:
+      - public/**/*.php
+    copy:
+      - src/vendor/test/copy.xml: public/assets/front/copy.xml

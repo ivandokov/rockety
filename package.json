@@ -1,8 +1,8 @@
 {
   "name": "rockety",
+  "version": "2.2.0",
   "description": "Really flexible ready to use front-end development toolbox based on Grunt",
   "repository": "ivandokov/rockety",
-  "version": "2.2.0",
   "license": "MIT",
   "author": {
     "name": "Ivan Dokov",
@@ -10,18 +10,16 @@
     "url": "http://dokov.bg"
   },
   "devDependencies": {
-    "autoprefixer": "^6.5.0",
-    "cssnano": "^3.7.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-less": "^1.4.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-postcss": "^0.8.0",
-    "grunt-svgstore": "^1.0.0",
-    "load-grunt-tasks": "^3.5.2"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-svgstore": "^6.0.0",
+    "gulp-uglify": "^2.0.0",
+    "js-yaml": "^3.6.1",
+    "jshint": "^2.9.3"
   }
 }

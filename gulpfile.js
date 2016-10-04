@@ -21,7 +21,6 @@ function css(config) {
     });
     vendor = gulp.src(vendors);
 
-    css = gulp.src([]);
     if (config.css.styles) {
         srcLess = config.css.styles.less ? config.source + '/less/' + config.css.styles.less : [];
         srcSass = config.css.styles.sass ? config.source + '/sass/' + config.css.styles.sass : [];
@@ -34,7 +33,7 @@ function css(config) {
         }));
     }
 
-    stream = merge(vendor, css);
+    stream = merge(vendor, css || gulp.src([]));
     if (config.css.sourcemap) { stream = stream.pipe(sourcemaps.init());}
     if (config.css.minify) {    stream = stream.pipe(cleancss());}
                                 stream = stream.pipe(concat('style.css'));

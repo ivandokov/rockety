@@ -110,7 +110,7 @@ function js(config) {
     if (config.js.minify) {
         stream = stream.pipe(uglify());
     }
-    stream = stream.pipe(concat('scripts.js'));
+    stream = stream.pipe(concat('scripts.js', {newLine: ';'}));
     if (config.js.sourcemap) {
         stream = stream.pipe(sourcemaps.write());
     }

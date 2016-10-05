@@ -30,7 +30,7 @@ rockety <project-name>
 [Ivan Dokov](http://dokov.bg)
 
 ## Contributors
-[Martin Vatev](http://vatev.center)
+[Martin Vatev](http://vatev.space)
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

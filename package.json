@@ -1,9 +1,10 @@
 {
   "name": "rockety",
   "version": "2.2.0",
-  "description": "Really flexible ready to use front-end development toolbox based on Grunt",
+  "description": "Flexible front-end development toolbox",
   "repository": "ivandokov/rockety",
   "license": "MIT",
+  "homepage": "http://ivandokov.github.io/rockety/",
   "author": {
     "name": "Ivan Dokov",
     "email": "ivan@dokov.bg",

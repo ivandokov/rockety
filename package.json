@@ -1,24 +1,27 @@
 {
-  "name": "dokov-grunt",
-  "description": "Grunt setup",
-  "version": "2.1.0",
+  "name": "rockety",
+  "version": "2.2.0",
+  "description": "Flexible front-end development toolbox",
+  "repository": "ivandokov/rockety",
   "license": "MIT",
+  "homepage": "http://ivandokov.github.io/rockety/",
   "author": {
     "name": "Ivan Dokov",
     "email": "ivan@dokov.bg",
     "url": "http://dokov.bg"
   },
   "devDependencies": {
-    "autoprefixer": "^6.1.2",
-    "cssnano": "^3.4.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-less": "^1.1.0",
-    "grunt-contrib-uglify": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-postcss": "^0.7.1",
-    "grunt-svgstore": "^0.5.0",
-    "load-grunt-tasks": "^3.3.0"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-svgstore": "^6.0.0",
+    "gulp-uglify": "^2.0.0",
+    "js-yaml": "^3.6.1",
+    "jshint": "^2.9.3"
   }
 }

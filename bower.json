@@ -1,0 +1,6 @@
+{
+  "name": "rockety",
+  "dependencies": {
+    "rockety-assets": "*"
+  }
+}

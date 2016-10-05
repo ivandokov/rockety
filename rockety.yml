@@ -18,4 +18,4 @@
   watch:
     - public/**/*.php
   copy:
-    - src/vendor/test/copy.xml: public/assets/front/copy.xml
+    - src/vendor/bootstrap/fonts/glyphicons-halflings-regular.*: public/assets/front/fonts/

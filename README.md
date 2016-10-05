@@ -25,3 +25,12 @@ and use it as:
 ```
 rockety <project-name>
 ```
+
+## Author
+[Ivan Dokov](http://dokov.bg)
+
+## Contributors
+[Martin Vatev](http://vatev.center)
+
+## License
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)

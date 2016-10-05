@@ -12,7 +12,7 @@
     sourcemap: true
     minify: true
     vendor:
-      - rockety/js/Browser.js
+      - jquery/dist/jquery.min.js
     scripts:
       - scripts.js
   watch:

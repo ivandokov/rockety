@@ -14,6 +14,7 @@ var cheerio = require('gulp-cheerio');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
+var livereload = require('gulp-livereload');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
 var sources = [];
 
@@ -50,7 +51,8 @@ function css(config) {
     if (config.css.sourcemap) {
         stream = stream.pipe(sourcemaps.write());
     }
-    return stream.pipe(gulp.dest(config.dest + '/css'));
+    stream = stream.pipe(gulp.dest(config.dest + '/css'));
+    stream.pipe(livereload());
 }
 
 function svg(config) {
@@ -65,7 +67,8 @@ function svg(config) {
             parserOptions: {xmlMode: true}
         }))
         .pipe(rename('shapes.svg'))
-        .pipe(gulp.dest(config.dest + '/svg'));
+        .pipe(gulp.dest(config.dest + '/svg'))
+        .pipe(livereload());
 }
 
 function js(config) {
@@ -114,7 +117,8 @@ function js(config) {
     if (config.js.sourcemap) {
         stream = stream.pipe(sourcemaps.write());
     }
-    return stream.pipe(gulp.dest(config.dest + '/js'));
+    stream = stream.pipe(gulp.dest(config.dest + '/js'));
+    stream.pipe(livereload());
 }
 
 
@@ -144,6 +148,7 @@ gulp.task('js', (sources.map(function(source) {
 gulp.task('build', ['css', 'svg', 'js'], function () {});
 
 gulp.task('watch', function () {
+    livereload.listen();
     sources.forEach(function(source) {
         gulp.watch(source + '/less/*.less', ['css:' + source]);
         gulp.watch(source + '/sass/*.sass', ['css:' + source]);

@@ -1,6 +1,6 @@
 {
   "name": "rockety",
   "dependencies": {
-    "reset-css": "^2.2.0"
+    "rockety-assets": "*"
   }
 }

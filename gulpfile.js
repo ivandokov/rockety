@@ -15,6 +15,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
+var sources = [];
 
 gulp.task('config', function () {
     console.log(JSON.stringify(config, null, 4));
@@ -116,7 +117,9 @@ function js(config) {
     return stream.pipe(gulp.dest(config.dest + '/js'));
 }
 
+
 config.forEach(function (source) {
+    sources.push(source.source);
     gulp.task('css:' + source.source, function () {
         return css(source)
     });
@@ -127,3 +130,15 @@ config.forEach(function (source) {
         return js(source)
     });
 });
+
+gulp.task('css', (sources.map(function(source) {
+    return 'css:' + source;
+})), function () {});
+gulp.task('svg', (sources.map(function(source) {
+    return 'svg:' + source;
+})), function () {});
+gulp.task('js', (sources.map(function(source) {
+    return 'js:' + source;
+})), function () {});
+
+gulp.task('build', ['css', 'svg', 'js'], function () {});

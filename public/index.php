@@ -13,7 +13,12 @@
 <body>
 	<?php $f = 'assets/front/svg/shapes.svg'; if (file_exists($f)) { include($f); } ?>
 
-	<h1>Hello, Dev!</h1>
+    <!-- <Delete me when you are ready to start working> -->
+	<div style="display:flex; width:100vw; height: 100vh; align-items:center; justify-content:center; background-image: linear-gradient(120deg, #155799, #159957);">
+	    <style>body {margin:0; padding:0;}</style>
+	    <svg style="width:600px; height:436px"><use xlink:href="#shape-rockety" style="fill:#fff"></use></svg>
+	</div>
+	<!-- </Delete> -->
 
 	<script src="assets/front/js/scripts.js"></script>
 </body>

@@ -142,3 +142,13 @@ gulp.task('js', (sources.map(function(source) {
 })), function () {});
 
 gulp.task('build', ['css', 'svg', 'js'], function () {});
+
+gulp.task('watch', function () {
+    sources.forEach(function(source) {
+        gulp.watch(source + '/less/*.less', ['css:' + source]);
+        gulp.watch(source + '/sass/*.sass', ['css:' + source]);
+        gulp.watch(source + '/sass/*.scss', ['css:' + source]);
+        gulp.watch(source + '/svg/*.svg', ['svg:' + source]);
+        gulp.watch(source + '/js/*.js', ['js:' + source]);
+    });
+});

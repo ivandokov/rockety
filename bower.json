@@ -1,0 +1,24 @@
+{
+  "name": "rockety",
+  "description": "Flexible front-end development toolbox",
+  "authors": [
+    {
+      "name": "Ivan Dokov",
+      "email": "ivan@dokov.bg",
+      "url": "http://dokov.bg"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "http://ivandokov.github.io/rockety/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "reset-css": "^2.2.0"
+  }
+}

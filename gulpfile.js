@@ -11,6 +11,9 @@ var sourcemaps = require('gulp-sourcemaps');
 var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var cheerio = require('gulp-cheerio');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var uglify = require('gulp-uglify');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
 
 gulp.task('config', function () {
@@ -64,11 +67,63 @@ function svg(config) {
         .pipe(gulp.dest(config.dest + '/svg'));
 }
 
+function js(config) {
+    var stream, vendors = [], vendor, scripts = [], script;
+
+    (config.js.vendor || []).forEach(function (item) {
+        vendors.push('./src/vendor/' + item);
+    });
+    vendor = gulp.src(vendors);
+
+    (config.js.scripts || []).forEach(function (item) {
+        scripts.push(config.source + '/js/' + item);
+    });
+    script = gulp.src(scripts);
+
+    if (scripts.length) {
+        script = script.pipe(jshint({
+            globals: {
+                console: true,
+                jQuery: true,
+            },
+            bitwise: true,
+            eqeqeq: true,
+            forin: true,
+            noarg: true,
+            nonbsp: true,
+            notypeof: true,
+            undef: true,
+            unused: false,
+            strict: true,
+            trailing: true,
+            debug: true,
+            latedef: 'nofunc',
+            browser: true
+        })).pipe(jshint.reporter('jshint-stylish', {beep: true}));
+    }
+
+    stream = merge(vendor, script);
+    if (config.js.sourcemap) {
+        stream = stream.pipe(sourcemaps.init());
+    }
+    if (config.js.minify) {
+        stream = stream.pipe(uglify());
+    }
+    stream = stream.pipe(concat('scripts.js'));
+    if (config.js.sourcemap) {
+        stream = stream.pipe(sourcemaps.write());
+    }
+    return stream.pipe(gulp.dest(config.dest + '/js'));
+}
+
 config.forEach(function (source) {
     gulp.task('css:' + source.source, function () {
         return css(source)
     });
     gulp.task('svg:' + source.source, function () {
         return svg(source)
+    });
+    gulp.task('js:' + source.source, function () {
+        return js(source)
     });
 });

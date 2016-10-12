@@ -27,7 +27,7 @@
 
 		<div id="quickguide">
 		    <div><code>gulp build</code> - execute all build tasks</div>
-		    <div><code>gulp watch</code> - build and start watching for changes</div>
+		    <div><code>gulp watch</code> - build and watch for changes</div>
 		    <div><code>gulp config</code> - list and validate configuration</div>
 		    <div><a href="http://ivandokov.github.io/rockety/" target="_blank">documentation</a> for more info</div>
 		</div>

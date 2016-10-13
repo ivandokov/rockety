@@ -85,25 +85,7 @@ function js(config) {
     script = gulp.src(scripts);
 
     if (scripts.length) {
-        script = script.pipe(jshint({
-            globals: {
-                console: true,
-                jQuery: true,
-            },
-            bitwise: true,
-            eqeqeq: true,
-            forin: true,
-            noarg: true,
-            nonbsp: true,
-            notypeof: true,
-            undef: true,
-            unused: false,
-            strict: true,
-            trailing: true,
-            debug: true,
-            latedef: 'nofunc',
-            browser: true
-        })).pipe(jshint.reporter('jshint-stylish', {beep: true}));
+        script = script.pipe(jshint()).pipe(jshint.reporter('jshint-stylish', {beep: true}));
     }
 
     stream = merge(vendor, script);

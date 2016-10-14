@@ -157,7 +157,7 @@ gulp.task('watch', function () {
         gulp.watch(source.source + '/js/*.js', ['js:' + source.source]);
         gulp.watch(source.watch, ['reload:' + source.source]);
         var copySources = [];
-        source.copy.forEach(function(files) {
+        (source.copy || []).forEach(function(files) {
             Object.keys(files).forEach(function(src) {
                 copySources.push(src);
             });

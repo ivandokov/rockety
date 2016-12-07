@@ -25,6 +25,10 @@ gulp.task('config', function () {
 function css(config) {
     var stream, vendors = [], vendor, css;
 
+    if (!config.css) {
+        return;
+    }
+
     (config.css.vendor || []).forEach(function (item) {
         vendors.push('./src/vendor/' + item);
     });
@@ -74,6 +78,10 @@ function svg(config) {
 function js(config) {
     var stream, vendors = [], vendor, scripts = [], script;
 
+    if (!config.js) {
+        return;
+    }
+
     (config.js.vendor || []).forEach(function (item) {
         vendors.push('./src/vendor/' + item);
     });
@@ -121,7 +129,7 @@ config.forEach(function (source) {
     });
 
     gulp.task('copy:' + source.source, function () {
-        source.copy.forEach(function(files) {
+        (source.copy || []).forEach(function(files) {
             Object.keys(files).forEach(function(src) {
                 gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload());
             });
@@ -155,7 +163,7 @@ gulp.task('watch', function () {
         gulp.watch(source.source + '/sass/*.scss', ['css:' + source.source]);
         gulp.watch(source.source + '/svg/*.svg', ['svg:' + source.source]);
         gulp.watch(source.source + '/js/*.js', ['js:' + source.source]);
-        gulp.watch(source.watch, ['reload:' + source.source]);
+        gulp.watch(source.watch || [], ['reload:' + source.source]);
         var copySources = [];
         (source.copy || []).forEach(function(files) {
             Object.keys(files).forEach(function(src) {

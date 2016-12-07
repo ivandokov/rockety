@@ -101,7 +101,7 @@ function js(config) {
         stream = stream.pipe(sourcemaps.init());
     }
     if (config.js.minify) {
-        stream = stream.pipe(uglify());
+        stream = stream.pipe(uglify().on('error', function(err){}));
     }
     stream = stream.pipe(concat('scripts.js', {newLine: ';'}));
     if (config.js.sourcemap) {

@@ -153,7 +153,7 @@ gulp.task('copy', (sources.map(function(source) {
     return 'copy:' + source;
 })), function () {});
 
-gulp.task('build', ['css', 'svg', 'js'], function () {});
+gulp.task('build', ['css', 'svg', 'js', 'copy'], function () {});
 
 gulp.task('watch', function () {
     livereload.listen();

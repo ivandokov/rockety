@@ -1,21 +1,25 @@
-- source: src/front
-  dest: public/assets/front
-  css:
-    sourcemap: true
-    minify: true
-    vendor:
-      - bootstrap/dist/css/bootstrap.css
-    styles:
-      sass: style.scss
-      less: style.less
-  js:
-    sourcemap: true
-    minify: true
-    vendor:
-      - jquery/dist/jquery.min.js
-    scripts:
-      - scripts.js
-  watch:
-    - public/**/*.php
-  copy:
-    - src/vendor/bootstrap/fonts/glyphicons-halflings-regular.*: public/assets/front/fonts/
+options:
+  livereloadPort: 35729
+
+sources:
+  - src: src/front
+    dest: public/assets/front
+    css:
+      sourcemap: true
+      minify: true
+      vendor:
+        - bootstrap/dist/css/bootstrap.css
+      styles:
+        sass: style.scss
+        less: style.less
+    js:
+      sourcemap: true
+      minify: true
+      vendor:
+        - jquery/dist/jquery.min.js
+      scripts:
+        - scripts.js
+    watch:
+      - public/**/*.php
+    copy:
+      - src/vendor/bootstrap/fonts/glyphicons-halflings-regular.*: public/assets/front/fonts/

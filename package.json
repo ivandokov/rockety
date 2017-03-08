@@ -10,6 +10,9 @@
     "email": "ivan@dokov.bg",
     "url": "http://dokov.bg"
   },
+  "scripts": {
+    "test": "exit 0"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",

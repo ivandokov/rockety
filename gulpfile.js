@@ -38,9 +38,8 @@ function css(src) {
         css = merge(
             gulp.src(src.css.styles.less ? src.src + '/less/' + src.css.styles.less : []).pipe(less()),
             gulp.src(src.css.styles.sass ? src.src + '/sass/' + src.css.styles.sass : []).pipe(sass())
-        ).pipe(autoprefixer({
+        ).pipe(autoprefixer(src.css.autoprefixer || {
             browsers: ['last 2 versions'],
-            cascade: false
         }));
     }
 

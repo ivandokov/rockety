@@ -7,6 +7,9 @@ sources:
     css:
       sourcemap: true
       minify: true
+      autoprefixer:
+        browsers:
+          - last 2 versions
       vendor:
         - bootstrap/dist/css/bootstrap.css
       styles:

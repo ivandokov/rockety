@@ -59,13 +59,18 @@ function css(src) {
 }
 
 function svg(src) {
+    var inline = src.svg.inline || false;
     return gulp.src(src.src + '/svg/*.svg')
         .pipe(rename({prefix: 'shape-'}))
         .pipe(svgmin())
-        .pipe(svgstore())
+        .pipe(svgstore({
+            inlineSvg: inline
+        }))
         .pipe(cheerio({
             run: function ($) {
-                $('svg').attr('style', 'display:none');
+                if (!inline) {
+                    $('svg').attr('style', 'display:none');
+                }
             },
             parserOptions: {xmlMode: true}
         }))

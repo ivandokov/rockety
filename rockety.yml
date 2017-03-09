@@ -22,6 +22,8 @@ sources:
         - jquery/dist/jquery.min.js
       scripts:
         - scripts.js
+    svg:
+      inline: true
     watch:
       - public/**/*.php
     copy:

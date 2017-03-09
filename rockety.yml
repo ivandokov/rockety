@@ -23,7 +23,7 @@ sources:
       scripts:
         - scripts.js
     svg:
-      inline: true
+      inline: false
     watch:
       - public/**/*.php
     copy:

@@ -92,7 +92,7 @@ function js(src) {
     vendor = gulp.src(vendors);
 
     (src.js.scripts || []).forEach(function (item) {
-        scripts.push(src.source + '/js/' + item);
+        scripts.push(src.src + '/js/' + item);
     });
     script = gulp.src(scripts);
 

@@ -7,6 +7,7 @@
 
 	<title>Rockety</title>
 
+	<link rel="stylesheet" href="assets/front/css/vendor.css">
 	<link rel="stylesheet" href="assets/front/css/style.css">
 </head>
 
@@ -36,7 +37,8 @@
 	</div>
 	<!-- </Delete> -->
 
-	<script src="assets/front/js/scripts.js"></script>
+	<script src="assets/front/js/vendor.js"></script>
+	<script src="assets/front/js/bundle.js"></script>
 	<script src="http://localhost:35729/livereload.js?snipver=1"></script>
 </body>
 </html>

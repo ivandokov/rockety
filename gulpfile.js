@@ -23,37 +23,58 @@ gulp.task('config', function () {
 });
 
 function css(src) {
-    var stream, vendors = [], vendor, css;
+    var stream, vendors = [], vendor, isLess;
 
     if (!src.css) {
         return;
     }
 
+    /**
+     * Vendor files
+     */
     (src.css.vendor || []).forEach(function (item) {
         vendors.push('./src/vendor/' + item);
     });
-    vendor = gulp.src(vendors);
-
-    if (src.css.styles) {
-        css = merge(
-            gulp.src(src.css.styles.less ? src.src + '/less/' + src.css.styles.less : []).pipe(less()),
-            gulp.src(src.css.styles.sass ? src.src + '/sass/' + src.css.styles.sass : []).pipe(sass())
-        ).pipe(autoprefixer(src.css.autoprefixer || {
-            browsers: ['last 2 versions'],
-        }));
+    if (vendors.length) {
+        gulp.src(vendors)
+            .pipe(cleancss())
+            .pipe(concat('vendor.css'))
+            .pipe(gulp.dest(src.dest + '/css'));
     }
 
-    stream = merge(vendor, css || gulp.src([]));
+    /**
+     * Own styles
+     */
+    if (!src.css.styles.less && !src.css.styles.sass) {
+        return;
+    }
+
+    isLess = src.css.styles.less ? true : false;
+
+    stream = isLess ?
+        gulp.src(src.css.styles.less ? src.src + '/less/' + src.css.styles.less : []) :
+        gulp.src(src.css.styles.sass ? src.src + '/sass/' + src.css.styles.sass : []);
+
     if (src.css.sourcemap) {
         stream = stream.pipe(sourcemaps.init());
     }
+
+    stream = stream.pipe(isLess ? less() : sass());
+
+    stream = stream.pipe(autoprefixer(src.css.autoprefixer || {
+        browsers: ['last 2 versions'],
+    }));
+
     if (src.css.minify) {
         stream = stream.pipe(cleancss());
     }
+
     stream = stream.pipe(concat('style.css'));
+
     if (src.css.sourcemap) {
         stream = stream.pipe(sourcemaps.write());
     }
+
     stream = stream.pipe(gulp.dest(src.dest + '/css'));
     stream.pipe(livereload());
 }
@@ -80,34 +101,47 @@ function svg(src) {
 }
 
 function js(src) {
-    var stream, vendors = [], vendor, scripts = [], script;
+    var stream, vendors = [], vendor, scripts = [], stream;
 
     if (!src.js) {
         return;
     }
 
+    /**
+     * Vendor files
+     */
     (src.js.vendor || []).forEach(function (item) {
         vendors.push('./src/vendor/' + item);
     });
-    vendor = gulp.src(vendors);
+    if (vendors) {
+        gulp.src(vendors)
+            .pipe(uglify().on('error', function(err){}))
+            .pipe(concat('vendor.js'))
+            .pipe(gulp.dest(src.dest + '/js'));
+    }
 
+    /**
+     * Own code
+     */
     (src.js.scripts || []).forEach(function (item) {
         scripts.push(src.src + '/js/' + item);
     });
-    script = gulp.src(scripts);
 
-    if (scripts.length) {
-        script = script.pipe(jshint()).pipe(jshint.reporter('jshint-stylish', {beep: true}));
+    if (!scripts.length) {
+        return;
     }
 
-    stream = merge(vendor, script);
+    stream = gulp.src(scripts);
+
+    stream = stream.pipe(jshint()).pipe(jshint.reporter('jshint-stylish', {beep: true}));
+
     if (src.js.sourcemap) {
         stream = stream.pipe(sourcemaps.init());
     }
     if (src.js.minify) {
         stream = stream.pipe(uglify().on('error', function(err){}));
     }
-    stream = stream.pipe(concat('scripts.js', {newLine: ';'}));
+    stream = stream.pipe(concat('bundle.js', {newLine: ';'}));
     if (src.js.sourcemap) {
         stream = stream.pipe(sourcemaps.write());
     }

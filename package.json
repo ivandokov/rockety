@@ -31,6 +31,7 @@
     "js-yaml": "^3.6.1",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
-    "merge2": "^1.0.2"
+    "merge2": "^1.0.2",
+    "rockety-assets": "^1.0.1"
   }
 }

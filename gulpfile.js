@@ -163,7 +163,9 @@ config.sources.forEach(function (src) {
     });
 
     gulp.task('reload:' + src.src, function () {
-        gulp.src(src.watch).pipe(livereload());
+        if (src.watch) {
+            gulp.src(src.watch).pipe(livereload());
+        }
     });
 
     gulp.task('copy:' + src.src, function () {

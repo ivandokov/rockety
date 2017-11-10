@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var fs = require('fs');
-var merge = require('merge2');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var less = require('gulp-less');
@@ -12,7 +11,7 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var cheerio = require('gulp-cheerio');
 var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+// var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
 var livereload = require('gulp-livereload');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
@@ -23,7 +22,7 @@ gulp.task('config', function () {
 });
 
 function css(src) {
-    var stream, vendors = [], vendor, isLess;
+    var stream, vendors = [], isLess;
 
     if (!src.css) {
         return;
@@ -33,7 +32,7 @@ function css(src) {
      * Vendor files
      */
     (src.css.vendor || []).forEach(function (item) {
-        vendors.push('./src/vendor/' + item);
+        vendors.push(item);
     });
     if (vendors.length) {
         gulp.src(vendors)
@@ -101,7 +100,7 @@ function svg(src) {
 }
 
 function js(src) {
-    var stream, vendors = [], vendor, scripts = [], stream;
+    var stream, vendors = [], scripts = [], stream;
 
     if (!src.js) {
         return;
@@ -111,11 +110,13 @@ function js(src) {
      * Vendor files
      */
     (src.js.vendor || []).forEach(function (item) {
-        vendors.push('./src/vendor/' + item);
+        vendors.push(item);
     });
     if (vendors) {
         gulp.src(vendors)
-            .pipe(uglify().on('error', function(err){}))
+            .pipe(uglify().on('error', function(err){
+                console.log(err);
+            }))
             .pipe(concat('vendor.js'))
             .pipe(gulp.dest(src.dest + '/js'));
     }

@@ -33,7 +33,6 @@
     "js-yaml": "^3.6.1",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
-    "popper.js": "^1.12.6",
-    "rockety-assets": "^1.0.1"
+    "popper.js": "^1.12.6"
   }
 }

@@ -20,6 +20,7 @@
     "gulp-cheerio": "^0.6.2",
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.0",
+    "gulp-connect": "^5.0.0",
     "gulp-jshint": "^2.0.1",
     "gulp-less": "^3.1.0",
     "gulp-livereload": "^3.8.1",
@@ -35,5 +36,6 @@
     "jshint-stylish": "^2.2.1",
     "popper.js": "^1.12.6",
     "run-sequence": "^2.2.0"
-  }
+  },
+  "dependencies": {}
 }

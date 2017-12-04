@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var fs = require('fs');
+var connect = require('gulp-connect');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -12,12 +13,12 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var cheerio = require('gulp-cheerio');
 var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
 var livereload = require('gulp-livereload');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
 var sources = [];
 var production = false;
+var serving = false;
 
 gulp.task('config', function () {
     console.log(JSON.stringify(config, null, 4));
@@ -77,7 +78,7 @@ function css(src) {
     }
 
     stream = stream.pipe(gulp.dest(src.dest + '/css'));
-    stream.pipe(livereload());
+    stream.pipe(serving ? connect.reload() : livereload());
 }
 
 function svg(src) {
@@ -98,7 +99,7 @@ function svg(src) {
         }))
         .pipe(rename('shapes.svg'))
         .pipe(gulp.dest(src.dest + '/svg'))
-        .pipe(livereload());
+        .pipe(serving ? connect.reload() : livereload());
 }
 
 function js(src) {
@@ -149,7 +150,7 @@ function js(src) {
         stream = stream.pipe(sourcemaps.write(src.js.sourcemapLocation || null));
     }
     stream = stream.pipe(gulp.dest(src.dest + '/js'));
-    stream.pipe(livereload());
+    stream.pipe(serving ? connect.reload() : livereload());
 }
 
 config.sources.forEach(function (src) {
@@ -166,14 +167,14 @@ config.sources.forEach(function (src) {
 
     gulp.task('reload:' + src.src, function () {
         if (src.watch) {
-            gulp.src(src.watch).pipe(livereload());
+            gulp.src(src.watch).pipe(serving ? connect.reload() : livereload());
         }
     });
 
     gulp.task('copy:' + src.src, function () {
         (src.copy || []).forEach(function(files) {
             Object.keys(files).forEach(function(src) {
-                gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload());
+                gulp.src(src).pipe(gulp.dest(files[src])).pipe(serving ? connect.reload() : livereload());
             });
         });
     });
@@ -207,13 +208,15 @@ gulp.task('build:production', [], productionBuild);
 gulp.task('build:prod', [], productionBuild);
 
 gulp.task('watch', function () {
-    var port = config.options.livereloadPort || 35729;
-    livereload.listen({
-        port: port
-    });
-    setTimeout(function() {
-        console.log('Livereload started on port ' + port);
-    });
+    if (!serving) {
+        var port = config.options.livereloadPort || 35729;
+        livereload.listen({
+            port: port
+        });
+        setTimeout(function() {
+            console.log('Livereload started on port ' + port);
+        });
+    }
 
     config.sources.forEach(function(src) {
         gulp.watch(src.src + '/less/*.less', ['css:' + src.src]);
@@ -228,5 +231,21 @@ gulp.task('watch', function () {
             });
         });
         gulp.watch(copySources, ['copy:' + src.src]);
+    });
+});
+
+gulp.task('internalPrepareLivereload', function() {
+    serving = true;
+});
+
+gulp.task('serve', ['internalPrepareLivereload', 'watch'], function () {
+    connect.server({
+        name: 'Rockety',
+        root: './public',
+        port: 8000,
+        fallback: './public/index.html',
+        livereload: {
+            port: config.options.livereloadPort || 35729
+        }
     });
 });

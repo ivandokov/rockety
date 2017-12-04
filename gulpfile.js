@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var fs = require('fs');
+var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var less = require('gulp-less');
@@ -11,11 +12,12 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var cheerio = require('gulp-cheerio');
 var jshint = require('gulp-jshint');
-// var stylish = require('jshint-stylish');
+var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
 var livereload = require('gulp-livereload');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
 var sources = [];
+var production = false;
 
 gulp.task('config', function () {
     console.log(JSON.stringify(config, null, 4));
@@ -54,7 +56,7 @@ function css(src) {
         gulp.src(src.css.styles.less ? src.src + '/less/' + src.css.styles.less : []) :
         gulp.src(src.css.styles.sass ? src.src + '/sass/' + src.css.styles.sass : []);
 
-    if (src.css.sourcemap) {
+    if (src.css.sourcemap && !production) {
         stream = stream.pipe(sourcemaps.init());
     }
 
@@ -64,13 +66,13 @@ function css(src) {
         browsers: ['last 2 versions'],
     }));
 
-    if (src.css.minify) {
+    if (src.css.minify || production) {
         stream = stream.pipe(cleancss());
     }
 
     stream = stream.pipe(concat('style.css'));
 
-    if (src.css.sourcemap) {
+    if (src.css.sourcemap && !production) {
         stream = stream.pipe(sourcemaps.write());
     }
 
@@ -136,20 +138,19 @@ function js(src) {
 
     stream = stream.pipe(jshint()).pipe(jshint.reporter('jshint-stylish', {beep: true}));
 
-    if (src.js.sourcemap) {
+    if (src.js.sourcemap && !production) {
         stream = stream.pipe(sourcemaps.init());
     }
-    if (src.js.minify) {
+    if (src.js.minify || production) {
         stream = stream.pipe(uglify().on('error', function(err){}));
     }
     stream = stream.pipe(concat('bundle.js', {newLine: ';'}));
-    if (src.js.sourcemap) {
+    if (src.js.sourcemap && !production) {
         stream = stream.pipe(sourcemaps.write());
     }
     stream = stream.pipe(gulp.dest(src.dest + '/js'));
     stream.pipe(livereload());
 }
-
 
 config.sources.forEach(function (src) {
     sources.push(src.src);
@@ -178,6 +179,13 @@ config.sources.forEach(function (src) {
     });
 });
 
+function productionBuild() {
+    production = true;
+    runSequence(['css', 'svg', 'js', 'copy'], function() {
+        production = false;
+    });
+}
+
 gulp.task('css', (sources.map(function(src) {
     return 'css:' + src;
 })), function () {});
@@ -195,6 +203,8 @@ gulp.task('copy', (sources.map(function(src) {
 })), function () {});
 
 gulp.task('build', ['css', 'svg', 'js', 'copy'], function () {});
+gulp.task('build:production', [], productionBuild);
+gulp.task('build:prod', [], productionBuild);
 
 gulp.task('watch', function () {
     var port = config.options.livereloadPort || 35729;

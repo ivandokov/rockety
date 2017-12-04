@@ -217,8 +217,7 @@ gulp.task('watch', function () {
 
     config.sources.forEach(function(src) {
         gulp.watch(src.src + '/less/*.less', ['css:' + src.src]);
-        gulp.watch(src.src + '/sass/*.sass', ['css:' + src.src]);
-        gulp.watch(src.src + '/sass/*.scss', ['css:' + src.src]);
+        gulp.watch([src.src + '/sass/*.sass', src.src + '/sass/*.scss'], ['css:' + src.src]);
         gulp.watch(src.src + '/svg/*.svg', ['svg:' + src.src]);
         gulp.watch(src.src + '/js/*.js', ['js:' + src.src]);
         gulp.watch(src.watch || [], ['reload:' + src.src]);

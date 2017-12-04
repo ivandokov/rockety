@@ -26,4 +26,5 @@ sources:
     svg:
       inline: false
     watch:
-      - public/**/*
+      - public/**/*.html
+      - public/**/*.php

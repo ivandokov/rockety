@@ -73,7 +73,7 @@ function css(src) {
     stream = stream.pipe(concat('style.css'));
 
     if (src.css.sourcemap && !production) {
-        stream = stream.pipe(sourcemaps.write());
+        stream = stream.pipe(sourcemaps.write(src.css.sourcemapLocation || null));
     }
 
     stream = stream.pipe(gulp.dest(src.dest + '/css'));
@@ -146,7 +146,7 @@ function js(src) {
     }
     stream = stream.pipe(concat('bundle.js', {newLine: ';'}));
     if (src.js.sourcemap && !production) {
-        stream = stream.pipe(sourcemaps.write());
+        stream = stream.pipe(sourcemaps.write(src.js.sourcemapLocation || null));
     }
     stream = stream.pipe(gulp.dest(src.dest + '/js'));
     stream.pipe(livereload());

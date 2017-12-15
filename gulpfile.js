@@ -62,6 +62,9 @@ function css(src) {
     }
 
     stream = stream.pipe(isLess ? less() : sass());
+    stream.on('error', function(err) {
+        console.log(err.message);
+    });
 
     stream = stream.pipe(autoprefixer(src.css.autoprefixer || {
         browsers: ['last 2 versions'],
@@ -117,8 +120,8 @@ function js(src) {
     });
     if (vendors) {
         gulp.src(vendors)
-            .pipe(uglify().on('error', function(err){
-                console.log(err);
+            .pipe(uglify().on('error', function(err) {
+                console.log(err.message);
             }))
             .pipe(concat('vendor.js'))
             .pipe(gulp.dest(src.dest + '/js'));

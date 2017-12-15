@@ -35,9 +35,7 @@ const css = src => {
     /**
      * Vendor files
      */
-    (src.css.vendor || []).forEach(item => {
-        vendors.push(item);
-    });
+    (src.css.vendor || []).forEach(item => vendors.push(item));
     if (vendors.length) {
         gulp.src(vendors)
             .pipe(cleancss())
@@ -90,9 +88,7 @@ const svg = src => {
     return gulp.src(src.src + '/svg/*.svg')
         .pipe(rename({prefix: 'shape-'}))
         .pipe(svgmin())
-        .pipe(svgstore({
-            inlineSvg: inline
-        }))
+        .pipe(svgstore({inlineSvg: inline}))
         .pipe(cheerio({
             run: $ => {
                 if (!inline) {
@@ -116,14 +112,10 @@ const js = src => {
     /**
      * Vendor files
      */
-    (src.js.vendor || []).forEach(item => {
-        vendors.push(item);
-    });
+    (src.js.vendor || []).forEach(item => vendors.push(item));
     if (vendors) {
         gulp.src(vendors)
-            .pipe(uglify().on('error', err => {
-                console.log(chalk.red(err.message));
-            }))
+            .pipe(uglify().on('error', err => console.log(chalk.red(err.message))))
             .pipe(concat('vendor.js'))
             .pipe(gulp.dest(src.dest + '/js'));
     }
@@ -131,9 +123,7 @@ const js = src => {
     /**
      * Own code
      */
-    (src.js.scripts || []).forEach(item => {
-        scripts.push(src.src + '/js/' + item);
-    });
+    (src.js.scripts || []).forEach(item => scripts.push(src.src + '/js/' + item));
 
     if (!scripts.length) {
         return;
@@ -171,9 +161,7 @@ config.sources.forEach(src => {
 
     gulp.task('copy:' + src.src, () => {
         (src.copy || []).forEach(files => {
-            Object.keys(files).forEach(src => {
-                gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload());
-            });
+            Object.keys(files).forEach(src => gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload()));
         });
     });
 });
@@ -194,9 +182,7 @@ gulp.task('build:prod', [], productionBuild);
 
 var watch = () => {
     const port = config.options.livereloadPort || 35729;
-    livereload.listen({
-        port: port
-    });
+    livereload.listen({port: port});
     setTimeout(() => console.log(chalk.green('Livereload started on port ' + port)));
 
     config.sources.forEach(src => {

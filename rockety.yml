@@ -14,7 +14,7 @@ sources:
       vendor:
         - ./node_modules/bootstrap/dist/css/bootstrap.css
       styles:
-        less: style.less
+        sass: style.scss
     js:
       sourcemap: true
       sourcemapLocation: ./

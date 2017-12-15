@@ -1,6 +1,7 @@
 var gulp = require('gulp');
+var express = require('express');
 var fs = require('fs');
-var connect = require('gulp-connect');
+var path = require('path');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -15,10 +16,10 @@ var cheerio = require('gulp-cheerio');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var livereload = require('gulp-livereload');
+var chalk = require('chalk');
 var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
 var sources = [];
 var production = false;
-var serving = false;
 
 gulp.task('config', function () {
     console.log(JSON.stringify(config, null, 4));
@@ -63,7 +64,7 @@ function css(src) {
 
     stream = stream.pipe(isLess ? less() : sass());
     stream.on('error', function(err) {
-        console.log(err.message);
+        console.log(chalk.red(err.message));
     });
 
     stream = stream.pipe(autoprefixer(src.css.autoprefixer || {
@@ -81,7 +82,7 @@ function css(src) {
     }
 
     stream = stream.pipe(gulp.dest(src.dest + '/css'));
-    stream.pipe(serving ? connect.reload() : livereload());
+    stream.pipe(livereload());
 }
 
 function svg(src) {
@@ -102,7 +103,7 @@ function svg(src) {
         }))
         .pipe(rename('shapes.svg'))
         .pipe(gulp.dest(src.dest + '/svg'))
-        .pipe(serving ? connect.reload() : livereload());
+        .pipe(livereload());
 }
 
 function js(src) {
@@ -121,7 +122,7 @@ function js(src) {
     if (vendors) {
         gulp.src(vendors)
             .pipe(uglify().on('error', function(err) {
-                console.log(err.message);
+                console.log(chalk.red(err.message));
             }))
             .pipe(concat('vendor.js'))
             .pipe(gulp.dest(src.dest + '/js'));
@@ -153,7 +154,7 @@ function js(src) {
         stream = stream.pipe(sourcemaps.write(src.js.sourcemapLocation || null));
     }
     stream = stream.pipe(gulp.dest(src.dest + '/js'));
-    stream.pipe(serving ? connect.reload() : livereload());
+    stream.pipe(livereload());
 }
 
 config.sources.forEach(function (src) {
@@ -170,14 +171,14 @@ config.sources.forEach(function (src) {
 
     gulp.task('reload:' + src.src, function () {
         if (src.watch) {
-            gulp.src(src.watch).pipe(serving ? connect.reload() : livereload());
+            gulp.src(src.watch).pipe(livereload());
         }
     });
 
     gulp.task('copy:' + src.src, function () {
         (src.copy || []).forEach(function(files) {
             Object.keys(files).forEach(function(src) {
-                gulp.src(src).pipe(gulp.dest(files[src])).pipe(serving ? connect.reload() : livereload());
+                gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload());
             });
         });
     });
@@ -210,16 +211,14 @@ gulp.task('build', ['css', 'svg', 'js', 'copy'], function () {});
 gulp.task('build:production', [], productionBuild);
 gulp.task('build:prod', [], productionBuild);
 
-gulp.task('watch', function () {
-    if (!serving) {
-        var port = config.options.livereloadPort || 35729;
-        livereload.listen({
-            port: port
-        });
-        setTimeout(function() {
-            console.log('Livereload started on port ' + port);
-        });
-    }
+var watch = function () {
+    var port = config.options.livereloadPort || 35729;
+    livereload.listen({
+        port: port
+    });
+    setTimeout(function() {
+        console.log(chalk.green('Livereload started on port ' + port));
+    });
 
     config.sources.forEach(function(src) {
         gulp.watch(src.src + '/less/*.less', ['css:' + src.src]);
@@ -235,20 +234,49 @@ gulp.task('watch', function () {
         });
         gulp.watch(copySources, ['copy:' + src.src]);
     });
-});
+};
 
-gulp.task('internalPrepareLivereload', function() {
-    serving = true;
-});
+gulp.task('watch', watch);
 
-gulp.task('serve', ['internalPrepareLivereload', 'watch'], function () {
-    connect.server({
-        name: 'Rockety',
-        root: './public',
-        port: 8000,
-        fallback: './public/index.html',
-        livereload: {
-            port: config.options.livereloadPort || 35729
+gulp.task('serve', [], function () {
+    var port = 8000;
+    var app = express();
+    var views = path.join(__dirname, 'public');
+
+    app.set('views', views);
+    app.engine('html', require('ejs').renderFile);
+
+    app.use(express.static('public', {
+        dotfiles: 'ignore',
+        etag: false,
+        index: false,
+        maxAge: '0',
+        setHeaders: function (res, path, stat) {
+            res.set('x-timestamp', Date.now())
+        }
+    }))
+
+    app.use(function(req, res) {
+        var requestedView = path.parse(req.path);
+        var viewPath = requestedView.dir;
+        var viewName = requestedView.name ? requestedView.name : 'index';
+        var filePath = path.join(views, viewPath, viewName) + '.html';
+
+        if (viewName === 'favicon') {
+            res.send();
+            return;
+        }
+
+        if (fs.existsSync(filePath)) {
+            res.render(filePath);
+        } else {
+            res.send('View not found! ['+ filePath +']');
         }
     });
+
+    app.listen(port, function () {
+        console.log(chalk.green('Rockety started at http://localhost:' + port));
+    });
+
+    watch();
 });

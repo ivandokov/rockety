@@ -14,7 +14,7 @@ sources:
       vendor:
         - ./node_modules/bootstrap/dist/css/bootstrap.css
       styles:
-        sass: style.scss
+        less: style.less
     js:
       sourcemap: true
       sourcemapLocation: ./
@@ -29,4 +29,3 @@ sources:
       inline: false
     watch:
       - public/**/*.html
-      - public/**/*.php

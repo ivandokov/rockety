@@ -1,32 +1,32 @@
-var gulp = require('gulp');
-var express = require('express');
-var fs = require('fs');
-var path = require('path');
-var runSequence = require('run-sequence');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-var less = require('gulp-less');
-var sass = require('gulp-sass');
-var cleancss = require('gulp-clean-css');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var svgstore = require('gulp-svgstore');
-var svgmin = require('gulp-svgmin');
-var cheerio = require('gulp-cheerio');
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
-var livereload = require('gulp-livereload');
-var chalk = require('chalk');
-var config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
-var sources = [];
-var production = false;
+const gulp = require('gulp');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const runSequence = require('run-sequence');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const less = require('gulp-less');
+const sass = require('gulp-sass');
+const cleancss = require('gulp-clean-css');
+const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const svgstore = require('gulp-svgstore');
+const svgmin = require('gulp-svgmin');
+const cheerio = require('gulp-cheerio');
+const jshint = require('gulp-jshint');
+const uglify = require('gulp-uglify');
+const livereload = require('gulp-livereload');
+const chalk = require('chalk');
+let config = require('js-yaml').safeLoad(fs.readFileSync('rockety.yml', 'utf8'));
+let sources = [];
+let production = false;
 
-gulp.task('config', function () {
+gulp.task('config', () => {
     console.log(JSON.stringify(config, null, 4));
 });
 
-function css(src) {
-    var stream, vendors = [], isLess;
+const css = src => {
+    let stream, vendors = [], isLess;
 
     if (!src.css) {
         return;
@@ -35,7 +35,7 @@ function css(src) {
     /**
      * Vendor files
      */
-    (src.css.vendor || []).forEach(function (item) {
+    (src.css.vendor || []).forEach(item => {
         vendors.push(item);
     });
     if (vendors.length) {
@@ -63,7 +63,7 @@ function css(src) {
     }
 
     stream = stream.pipe(isLess ? less() : sass());
-    stream.on('error', function(err) {
+    stream.on('error', err => {
         console.log(chalk.red(err.message));
     });
 
@@ -85,8 +85,8 @@ function css(src) {
     stream.pipe(livereload());
 }
 
-function svg(src) {
-    var inline = src.svg.inline || false;
+const svg = src => {
+    let inline = src.svg.inline || false;
     return gulp.src(src.src + '/svg/*.svg')
         .pipe(rename({prefix: 'shape-'}))
         .pipe(svgmin())
@@ -94,7 +94,7 @@ function svg(src) {
             inlineSvg: inline
         }))
         .pipe(cheerio({
-            run: function ($) {
+            run: $ => {
                 if (!inline) {
                     $('svg').attr('style', 'display:none');
                 }
@@ -106,8 +106,8 @@ function svg(src) {
         .pipe(livereload());
 }
 
-function js(src) {
-    var stream, vendors = [], scripts = [], stream;
+const js = src => {
+    let stream, vendors = [], scripts = [];
 
     if (!src.js) {
         return;
@@ -116,12 +116,12 @@ function js(src) {
     /**
      * Vendor files
      */
-    (src.js.vendor || []).forEach(function (item) {
+    (src.js.vendor || []).forEach(item => {
         vendors.push(item);
     });
     if (vendors) {
         gulp.src(vendors)
-            .pipe(uglify().on('error', function(err) {
+            .pipe(uglify().on('error', err => {
                 console.log(chalk.red(err.message));
             }))
             .pipe(concat('vendor.js'))
@@ -131,7 +131,7 @@ function js(src) {
     /**
      * Own code
      */
-    (src.js.scripts || []).forEach(function (item) {
+    (src.js.scripts || []).forEach(item => {
         scripts.push(src.src + '/js/' + item);
     });
 
@@ -147,7 +147,7 @@ function js(src) {
         stream = stream.pipe(sourcemaps.init());
     }
     if (src.js.minify || production) {
-        stream = stream.pipe(uglify().on('error', function(err){}));
+        stream = stream.pipe(uglify().on('error', err => {}));
     }
     stream = stream.pipe(concat('bundle.js', {newLine: ';'}));
     if (src.js.sourcemap && !production) {
@@ -157,80 +157,57 @@ function js(src) {
     stream.pipe(livereload());
 }
 
-config.sources.forEach(function (src) {
+config.sources.forEach(src => {
     sources.push(src.src);
-    gulp.task('css:' + src.src, function () {
-        return css(src)
-    });
-    gulp.task('svg:' + src.src, function () {
-        return svg(src)
-    });
-    gulp.task('js:' + src.src, function () {
-        return js(src)
-    });
+    gulp.task('css:' + src.src, () => css(src));
+    gulp.task('svg:' + src.src, () => svg(src));
+    gulp.task('js:' + src.src, () => js(src));
 
-    gulp.task('reload:' + src.src, function () {
+    gulp.task('reload:' + src.src, () => {
         if (src.watch) {
             gulp.src(src.watch).pipe(livereload());
         }
     });
 
-    gulp.task('copy:' + src.src, function () {
-        (src.copy || []).forEach(function(files) {
-            Object.keys(files).forEach(function(src) {
+    gulp.task('copy:' + src.src, () => {
+        (src.copy || []).forEach(files => {
+            Object.keys(files).forEach(src => {
                 gulp.src(src).pipe(gulp.dest(files[src])).pipe(livereload());
             });
         });
     });
 });
 
-function productionBuild() {
+const productionBuild = () => {
     production = true;
-    runSequence(['css', 'svg', 'js', 'copy'], function() {
-        production = false;
-    });
+    runSequence(['css', 'svg', 'js', 'copy'], production = false);
 }
 
-gulp.task('css', (sources.map(function(src) {
-    return 'css:' + src;
-})), function () {});
-gulp.task('svg', (sources.map(function(src) {
-    return 'svg:' + src;
-})), function () {});
-gulp.task('js', (sources.map(function(src) {
-    return 'js:' + src;
-})), function () {});
-gulp.task('reload', (sources.map(function(src) {
-    return 'reload:' + src;
-})), function () {});
-gulp.task('copy', (sources.map(function(src) {
-    return 'copy:' + src;
-})), function () {});
-
-gulp.task('build', ['css', 'svg', 'js', 'copy'], function () {});
+gulp.task('css', sources.map(src => 'css:' + src), () => {});
+gulp.task('svg', sources.map(src => 'svg:' + src), () => {});
+gulp.task('js', sources.map(src => 'js:' + src), () => {});
+gulp.task('reload', sources.map(src => 'reload:' + src), () => {});
+gulp.task('copy', sources.map(src => 'copy:' + src), () => {});
+gulp.task('build', ['css', 'svg', 'js', 'copy'], () => {});
 gulp.task('build:production', [], productionBuild);
 gulp.task('build:prod', [], productionBuild);
 
-var watch = function () {
-    var port = config.options.livereloadPort || 35729;
+var watch = () => {
+    const port = config.options.livereloadPort || 35729;
     livereload.listen({
         port: port
     });
-    setTimeout(function() {
-        console.log(chalk.green('Livereload started on port ' + port));
-    });
+    setTimeout(() => console.log(chalk.green('Livereload started on port ' + port)));
 
-    config.sources.forEach(function(src) {
+    config.sources.forEach(src => {
         gulp.watch(src.src + '/less/*.less', ['css:' + src.src]);
         gulp.watch([src.src + '/sass/*.sass', src.src + '/sass/*.scss'], ['css:' + src.src]);
         gulp.watch(src.src + '/svg/*.svg', ['svg:' + src.src]);
         gulp.watch(src.src + '/js/*.js', ['js:' + src.src]);
         gulp.watch(src.watch || [], ['reload:' + src.src]);
         var copySources = [];
-        (src.copy || []).forEach(function(files) {
-            Object.keys(files).forEach(function(src) {
-                copySources.push(src);
-            });
+        (src.copy || []).forEach(files => {
+            Object.keys(files).forEach(src => copySources.push(src));
         });
         gulp.watch(copySources, ['copy:' + src.src]);
     });
@@ -238,10 +215,10 @@ var watch = function () {
 
 gulp.task('watch', watch);
 
-gulp.task('serve', [], function () {
-    var port = 8000;
-    var app = express();
-    var views = path.join(__dirname, 'public');
+gulp.task('serve', [], () => {
+    const port = 8000;
+    const app = express();
+    const views = path.join(__dirname, 'public');
 
     app.set('views', views);
     app.engine('html', require('ejs').renderFile);
@@ -251,12 +228,12 @@ gulp.task('serve', [], function () {
         etag: false,
         index: false,
         maxAge: '0',
-        setHeaders: function (res, path, stat) {
+        setHeaders: (res, path, stat) => {
             res.set('x-timestamp', Date.now())
         }
     }))
 
-    app.use(function(req, res) {
+    app.use((req, res) => {
         var requestedView = path.parse(req.path);
         var viewPath = requestedView.dir;
         var viewName = requestedView.name ? requestedView.name : 'index';
@@ -274,9 +251,7 @@ gulp.task('serve', [], function () {
         }
     });
 
-    app.listen(port, function () {
-        console.log(chalk.green('Rockety started at http://localhost:' + port));
-    });
+    app.listen(port, () => console.log(chalk.green('Rockety started at http://localhost:' + port)));
 
     watch();
 });

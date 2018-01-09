@@ -1,31 +1,34 @@
+# Global options for all sources
 options:
-  livereloadPort: 35729
-
-sources:
-  - src: src/front
-    dest: public/assets/front
-    css:
-      sourcemap: true
-      sourcemapLocation: ./
-      minify: false
-      autoprefixer:
+    livereloadPort: 35729 # Don't forget to change the port in the HTML if you change it here
+    sourcemap: true
+    sourcemapLocation: .
+    minify: false
+    babelPolyfill: true
+    autoprefixer:
         browsers:
-          - last 2 versions
-      vendor:
-        - ./node_modules/bootstrap/dist/css/bootstrap.css
-      styles:
-        sass: style.scss
-    js:
-      sourcemap: true
-      sourcemapLocation: ./
-      minify: false
-      vendor:
-        - ./node_modules/jquery/dist/jquery.min.js
-        - ./node_modules/popper.js/dist/umd/popper.min.js
-        - ./node_modules/bootstrap/dist/js/bootstrap.bundle.js
-      scripts:
-        - scripts.js
+            - last 2 versions
     svg:
-      inline: false
+        inline: false
     watch:
-      - public/**/*.html
+          - public/**/*.html
+
+# Sources section defines all source directories and their settings.
+# By default a regular site needs only one style and script file,
+# but more complicated sites could benefit of multiple sources.
+# For example if you have an admin panel and you want to separate the
+# styles and scripts from the front part of the website this is a perfect
+# case for multiple sources.
+sources:
+    main:
+        src: src
+        dest: public/assets
+        css:
+            main: main.scss
+            vendor:
+                - node_modules/bootstrap/dist/css/bootstrap.min.css
+        js:
+            main: main.js
+            vendor:
+                - node_modules/jquery/dist/jquery.min.js
+                - node_modules/bootstrap/dist/js/bootstrap.bundle.min.js

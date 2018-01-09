@@ -74,31 +74,30 @@ const svg = src => {
 }
 
 const js = src => {
-    let stream, vendors = [], jsSrc = [];
+    let stream, vendors = [];
 
     if (!src.js) return;
 
     (src.js.vendor || []).forEach(item => vendors.push(item));
-    if (vendors) {
-        gulp.src(vendors)
-            .pipe(uglify().on('error', err => console.log(chalk.red(err.message))))
-            .pipe(concat('vendor.js'))
-            .pipe(gulp.dest(`${src.dest}/js`));
-    }
+
+    if (config.options.babelPolyfill)
+        vendors.push('node_modules/babel-polyfill/dist/polyfill.min.js');
+
+    if (vendors) gulp.src(vendors)
+        .pipe(uglify().on('error', err => console.log(chalk.red(err.message))))
+        .pipe(concat('vendor.js'))
+        .pipe(gulp.dest(`${src.dest}/js`));
 
     if (!src.js.main) return;
 
-    if (config.options.babelPolyfill)
-        jsSrc.push('node_modules/babel-polyfill/dist/polyfill.js');
-
-    jsSrc.push(`${src.src}/js/${src.js.main}`);
-
-    stream = gulp.src(jsSrc);
+    stream = gulp.src(`${src.src}/js/${src.js.main}`);
     stream = stream.pipe(eslint()).pipe(eslint.format());
 
     if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.init());
 
-    stream = stream.pipe(babel().on('error', err => console.log(chalk.red(err.message))));
+    stream = stream.pipe(babel({
+        "presets": ["env"]
+    }).on('error', err => console.log(chalk.red(err.message))));
 
     stream = stream.pipe(webpackStream({
         resolve: {

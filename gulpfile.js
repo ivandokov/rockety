@@ -141,7 +141,7 @@ for (const sourceName of sources) {
 gulp.task('css', sources.map(src => `css:${src}`), () => {});
 gulp.task('svg', sources.map(src => `svg:${src}`), () => {});
 gulp.task('js', sources.map(src => `js:${src}`), () => {});
-gulp.task('reload', config.options.watch, () => {
+gulp.task('reload', () => {
     if (!config.options.watch) return;
     gulp.src(config.options.watch).pipe(livereload());
 });
@@ -169,8 +169,9 @@ var watch = () => {
         gulp.watch(`${sourceConfig.src}/sass/*.scss`, [`css:${sourceName}`]);
         gulp.watch(`${sourceConfig.src}/svg/*.svg`, [`svg:${sourceName}`]);
         gulp.watch(`${sourceConfig.src}/js/*.js`, [`js:${sourceName}`]);
-        gulp.watch(config.options.watch || [], ['reload']);
     }
+
+    gulp.watch(config.options.watch || [], ['reload']);
 };
 
 gulp.task('watch', watch);

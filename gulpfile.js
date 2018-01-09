@@ -7,7 +7,7 @@ const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
-const cleancss = require('gulp-clean-css');
+const minifycss = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const svgstore = require('gulp-svgstore');
@@ -30,12 +30,10 @@ const css = src => {
     if (!src.css) return;
 
     (src.css.vendor || []).forEach(item => vendors.push(item));
-    if (vendors.length) {
-        gulp.src(vendors)
-            .pipe(cleancss())
-            .pipe(concat('vendor.css'))
-            .pipe(gulp.dest(`${src.dest}/css`));
-    }
+    if (vendors.length) gulp.src(vendors)
+        .pipe(minifycss())
+        .pipe(concat('vendor.css'))
+        .pipe(gulp.dest(`${src.dest}/css`));
 
     if (!src.css.main) return;
 
@@ -44,7 +42,7 @@ const css = src => {
     if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.init());
     stream = stream.pipe(src.css.main.match(/\.less$/) ? less() : sass());
     stream = stream.pipe(autoprefixer(config.options.autoprefixer || {browsers: ['last 2 versions']}));
-    if (config.options.minify || production) stream = stream.pipe(cleancss());
+    if (config.options.minify || production) stream = stream.pipe(minifycss());
     stream = stream.pipe(concat('style.css'));
 
     if (config.options.sourcemap && !production)
@@ -164,8 +162,7 @@ var watch = () => {
     for (const sourceName of sources) {
         const sourceConfig = config.sources[sourceName];
 
-        gulp.watch(`${sourceConfig.src}/less/*.less`, [`css:${sourceName}`]);
-        gulp.watch(`${sourceConfig.src}/sass/*.scss`, [`css:${sourceName}`]);
+        gulp.watch(`${sourceConfig.src}/css/*.{scss,less}`, [`css:${sourceName}`]);
         gulp.watch(`${sourceConfig.src}/svg/*.svg`, [`svg:${sourceName}`]);
         gulp.watch(`${sourceConfig.src}/js/*.js`, [`js:${sourceName}`]);
     }

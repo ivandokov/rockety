@@ -2,7 +2,6 @@
 options:
     livereloadPort: 35729 # Don't forget to change the port in the HTML if you change it here
     sourcemap: true
-    sourcemapLocation: .
     minify: false
     babelPolyfill: true
     autoprefixer:

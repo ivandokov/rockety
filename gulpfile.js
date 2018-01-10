@@ -53,7 +53,7 @@ const css = src => {
 }
 
 const svg = src => {
-    let inline = config.options.svg.inline || false;
+    let inline = config.options.svgInline || false;
     return gulp.src(`${src.src}/svg/*.svg`)
         .pipe(rename({prefix: 'shape-'}))
         .pipe(svgmin())

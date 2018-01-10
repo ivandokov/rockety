@@ -97,9 +97,7 @@ const js = src => {
         "presets": ["env"]
     }).on('error', err => console.log(chalk.red(err.message))));
 
-    if (config.options.sourcemap && !production) {
-        stream = stream.pipe(sourcemaps.write());
-    }
+    if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.write());
 
     stream = stream.pipe(webpackStream({
         resolve: {
@@ -127,8 +125,8 @@ const js = src => {
 
     if (config.options.minify || production)
         stream = stream.pipe(uglify().on('error', err => console.log(chalk.red(err.message))));
-    stream = stream.pipe(concat('bundle.js'));
 
+    stream = stream.pipe(concat('bundle.js'));
     stream = stream.pipe(gulp.dest(`${src.dest}/js`));
     stream.pipe(livereload());
 }
@@ -140,7 +138,7 @@ for (const sourceName of sources) {
     gulp.task(`js:${sourceName}`, () => js(sourceConfig));
 }
 
-// gulp.task('config', console.log(JSON.stringify(config, null, 4)));
+gulp.task('config', () => {console.log(JSON.stringify(config, null, 4))});
 gulp.task('css', sources.map(src => `css:${src}`), () => {});
 gulp.task('svg', sources.map(src => `svg:${src}`), () => {});
 gulp.task('js', sources.map(src => `js:${src}`), () => {});
@@ -205,11 +203,10 @@ gulp.task('serve', ['build'], () => {
             return;
         }
 
-        if (fs.existsSync(filePath)) {
+        if (fs.existsSync(filePath))
             res.render(filePath);
-        } else {
+        else
             res.send(`View not found! [${filePath}]`);
-        }
     });
 
     app.listen(port, () => console.log(chalk.green(`Rockety started at http://localhost:${port}`)));

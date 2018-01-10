@@ -46,7 +46,7 @@ const css = src => {
     stream = stream.pipe(concat('style.css'));
 
     if (config.options.sourcemap && !production)
-        stream = stream.pipe(sourcemaps.write(config.options.sourcemapLocation || null));
+        stream = stream.pipe(sourcemaps.write());
 
     stream = stream.pipe(gulp.dest(`${src.dest}/css`));
     stream.pipe(livereload());
@@ -97,31 +97,37 @@ const js = src => {
         "presets": ["env"]
     }).on('error', err => console.log(chalk.red(err.message))));
 
+    if (config.options.sourcemap && !production) {
+        stream = stream.pipe(sourcemaps.write());
+    }
+
     stream = stream.pipe(webpackStream({
         resolve: {
             modules: [path.resolve(__dirname, `${src.src}/js`), path.resolve(__dirname, 'node_modules')]
         },
+        devtool: !config.options.sourcemap || production ? 'none' : 'cheap-module-eval-source-map',
         module: {
-            rules: [{
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    loader: 'source-map-loader',
+                    enforce: "pre"
+                },
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
                     loader: 'babel-loader',
                     options: {
                         presets: ['env', 'stage-0']
                     }
                 }
-            }]
+            ]
         }
     }, webpack).on('error', err => console.log(chalk.red(err.message))));
 
     if (config.options.minify || production)
         stream = stream.pipe(uglify().on('error', err => console.log(chalk.red(err.message))));
     stream = stream.pipe(concat('bundle.js'));
-
-    if (config.options.sourcemap && !production) {
-        stream = stream.pipe(sourcemaps.write(config.options.sourcemapLocation || null));
-    }
 
     stream = stream.pipe(gulp.dest(`${src.dest}/js`));
     stream.pipe(livereload());

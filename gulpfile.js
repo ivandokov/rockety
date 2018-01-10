@@ -39,13 +39,13 @@ const css = src => {
 
     stream = gulp.src(`${src.src}/css/${src.css.main}`);
     stream.on('error', err => console.log(chalk.red(err.message)));
-    if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.init());
+    if (!production) stream = stream.pipe(sourcemaps.init());
     stream = stream.pipe(src.css.main.match(/\.less$/) ? less() : sass());
     stream = stream.pipe(autoprefixer(config.options.autoprefixer || {browsers: ['last 2 versions']}));
-    if (config.options.minify || production) stream = stream.pipe(minifycss());
+    if (production) stream = stream.pipe(minifycss());
     stream = stream.pipe(concat('style.css'));
 
-    if (config.options.sourcemap && !production)
+    if (!production)
         stream = stream.pipe(sourcemaps.write());
 
     stream = stream.pipe(gulp.dest(`${src.dest}/css`));
@@ -91,19 +91,19 @@ const js = src => {
     stream = gulp.src(`${src.src}/js/${src.js.main}`);
     stream = stream.pipe(eslint()).pipe(eslint.format());
 
-    if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.init());
+    if (!production) stream = stream.pipe(sourcemaps.init());
 
     stream = stream.pipe(babel({
         "presets": ["env"]
     }).on('error', err => console.log(chalk.red(err.message))));
 
-    if (config.options.sourcemap && !production) stream = stream.pipe(sourcemaps.write());
+    if (!production) stream = stream.pipe(sourcemaps.write());
 
     stream = stream.pipe(webpackStream({
         resolve: {
             modules: [path.resolve(__dirname, `${src.src}/js`), path.resolve(__dirname, 'node_modules')]
         },
-        devtool: !config.options.sourcemap || production ? 'none' : 'cheap-module-eval-source-map',
+        devtool: production ? 'none' : 'cheap-module-eval-source-map',
         module: {
             rules: [
                 {
@@ -123,8 +123,7 @@ const js = src => {
         }
     }, webpack).on('error', err => console.log(chalk.red(err.message))));
 
-    if (config.options.minify || production)
-        stream = stream.pipe(uglify().on('error', err => console.log(chalk.red(err.message))));
+    if (production) stream = stream.pipe(uglify().on('error', err => console.log(chalk.red(err.message))));
 
     stream = stream.pipe(concat('bundle.js'));
     stream = stream.pipe(gulp.dest(`${src.dest}/js`));

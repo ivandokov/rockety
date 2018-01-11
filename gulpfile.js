@@ -40,7 +40,7 @@ const css = src => {
     stream = gulp.src(`${src.src}/css/${src.css.main}`);
     stream.on('error', err => console.log(chalk.red(err.message)));
     if (!production) stream = stream.pipe(sourcemaps.init());
-    stream = stream.pipe(src.css.main.match(/\.less$/) ? less() : sass());
+    stream = stream.pipe(src.css.main.match(/\.less$/) ? less() : sass().on('error', sass.logError));
     stream = stream.pipe(autoprefixer(config.options.autoprefixer || {browsers: ['last 2 versions']}));
     if (production) stream = stream.pipe(minifycss());
     stream = stream.pipe(concat('style.css'));

@@ -28,16 +28,16 @@
     "express": "^4.16.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
-    "gulp-babel": "^7.0.0",
+    "gulp-babel": "^7.0.1",
     "gulp-cheerio": "^0.6.3",
     "gulp-clean-css": "^3.9.2",
     "gulp-concat": "^2.6.0",
-    "gulp-eslint": "^4.0.1",
+    "gulp-eslint": "^4.0.2",
     "gulp-less": "^3.4.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.3",
+    "gulp-sourcemaps": "^2.6.4",
     "gulp-svgmin": "^1.2.3",
     "gulp-svgstore": "^6.1.1",
     "gulp-uglify": "^3.0.0",
@@ -48,7 +48,7 @@
     "webpack-stream": "^4.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-beta.3",
-    "jquery": "^3.2.1"
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1"
   }
 }

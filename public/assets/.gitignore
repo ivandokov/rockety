@@ -1,2 +1,5 @@
-*
-!.gitignore
+/**/style.css
+/**/style.css.map
+/**/vendor.css
+/**/bundle.js
+/**/vendor.js

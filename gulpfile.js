@@ -142,8 +142,7 @@ gulp.task('css', sources.map(src => `css:${src}`), () => {});
 gulp.task('svg', sources.map(src => `svg:${src}`), () => {});
 gulp.task('js', sources.map(src => `js:${src}`), () => {});
 gulp.task('reload', () => {
-    if (!config.options.watch) return;
-    gulp.src(config.options.watch).pipe(livereload());
+    livereload.reload();
 });
 gulp.task('build', ['css', 'svg', 'js'], () => {});
 
@@ -170,7 +169,10 @@ var watch = () => {
         gulp.watch(`${sourceConfig.src}/js/*.js`, [`js:${sourceName}`]);
     }
 
-    gulp.watch(config.options.watch || [], ['reload']);
+    for (const watcher of (config.options.watch || [])) {
+        const path = Object.keys(watcher)[0];
+        gulp.watch(path, watcher[path]);
+    }
 };
 
 gulp.task('watch', watch);

@@ -7,7 +7,10 @@ options:
             - last 2 versions
     svgInline: false
     watch:
-          - public/**/*.html
+        - public/**/*.html:
+            - reload
+        - src/common/**/*.{scss,less}:
+            - css
 
 # Sources section defines all source directories and their settings.
 # By default a regular site needs only one style and script file,

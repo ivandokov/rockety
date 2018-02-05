@@ -318,61 +318,61 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 ##### v1.0.0
 - Initial version
 
-## <a name="changelog-cli">Changelog for Rockety-cli</a>
+## <a id="changelog-cli">Changelog for Rockety-cli</a>
 
-##### <a name="v1.11.1-cli">v1.11.1</a>
+##### <a name="v1111-cli">v1.11.1</a>
 - Fixed issue with `proxy()` which was breaking commands send to `gulp`
 
-##### <a name="v1.11.0-cli">v1.11.0</a>
+##### <a name="v1110-cli">v1.11.0</a>
 - Bumped node version to 6.12.2
 - Syntax updated to ES6
 
-##### <a name="v1.10.1-cli">v1.10.1</a>
+##### <a name="v1101-cli">v1.10.1</a>
 - Updated help
 
-##### <a name="v1.10.0-cli">v1.10.0</a>
+##### <a name="v1100-cli">v1.10.0</a>
 - Fixed bug with `rockety create`
 - Removed Bower because `rockety-assets` is a node module
 
-##### <a name="v1.9.0-cli">v1.9.0</a>
+##### <a name="v190-cli">v1.9.0</a>
 - Better error handling for proxy commands when executing outside Rockety project folder
 - Fix in help
 - Allow project creation in current folder when using "." for project name/path
 
-##### <a name="v1.8.0-cli">v1.8.0</a>
+##### <a name="v180-cli">v1.8.0</a>
 - Fixed env for `exec/execSync/spawn` which fixes the proxy function for using: `rockety build/watch/etc`
 
-##### <a name="v1.7.0-cli">v1.7.0</a>
+##### <a name="v170-cli">v1.7.0</a>
 - Install dependencies with yarn if it is available
 
-##### <a name="v1.6.1-cli">v1.6.1</a>
+##### <a name="v161-cli">v1.6.1</a>
 - `--dev` flag downloads master branch instead of dev branch
 - Removed cleanup code because it is handled by gitattributes now
 
-##### <a name="v1.6.0-cli">v1.6.0</a>
+##### <a name="v160-cli">v1.6.0</a>
 - Renamed install argument to create because it makes more sense
 
-##### <a name="v1.5.1-cli">v1.5.1</a>
+##### <a name="v151-cli">v1.5.1</a>
 - Fixed error when creating cache dir
 - Fixed update message
 
-##### <a name="v1.5.0-cli">v1.5.0</a>
+##### <a name="v150-cli">v1.5.0</a>
 - Cache Rockety version locally to declearse install time for next projects
 
-##### <a name="v1.4.4-cli">v1.4.4</a>
+##### <a name="v144-cli">v1.4.4</a>
 - Started changelog for `rockety-cli`
 - Updated readme
 
-##### <a name="v1.4.3-cli">v1.4.3</a>
+##### <a name="v143-cli">v1.4.3</a>
 - Updated readme
 
-##### <a name="v1.4.2-cli">v1.4.2</a>
+##### <a name="v142-cli">v1.4.2</a>
 - Exit if directory exists
 
-##### <a name="v1.4.1-cli">v1.4.1</a>
+##### <a name="v141-cli">v1.4.1</a>
 - Fixed path for `find()`
 
-##### <a name="v1.4.0-cli">v1.4.0</a>
+##### <a name="v140-cli">v1.4.0</a>
 - Proxy arguments to Gulp
 - Default command is replaced with create one: `rockety create [project-name]`
 - Fixed bug when wrong extracted folder name is selected and removed `/bin/bash` alias from `exec`
@@ -380,52 +380,52 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 - Added help
 - Refactoring
 
-##### <a name="v1.3.2-cli">v1.3.2</a>
+##### <a name="v132-cli">v1.3.2</a>
 - Fixed message for update
 
-##### <a name="v1.3.1-cli">v1.3.1</a>
+##### <a name="v131-cli">v1.3.1</a>
 - Show errors from npm and bower if any
 - Updated message for npm and bower install
 
-##### <a name="v1.3.0-cli">v1.3.0</a>
+##### <a name="v130-cli">v1.3.0</a>
 - Check for updates before doing anything else
 - Colorful messages
 - Spinner when running bower/npm install
 
-##### <a name="v1.2.5-cli">v1.2.5</a>
+##### <a name="v125-cli">v1.2.5</a>
 - Changed exec shell to bash
 - Combined log messages for npm and bower
 - Move cleanup before npm/bower install
 
-##### <a name="v1.2.4-cli">v1.2.4</a>
+##### <a name="v124-cli">v1.2.4</a>
 - Removed changelog from cleanup list
 
-##### <a name="v1.2.3-cli">v1.2.3</a>
+##### <a name="v123-cli">v1.2.3</a>
 - Fixed paths for cleanup and exec for global install of cli
 
-##### <a name="v1.2.1-cli">v1.2.1</a>
+##### <a name="v121-cli">v1.2.1</a>
 - Run `bower install`
 - Add `public/.gitignore` to cleanup list
 
-##### <a name="v1.2.0-cli">v1.2.0</a>
+##### <a name="v120-cli">v1.2.0</a>
 - Clean up unnecessary files from project folder after extraction
 - More code refactoring
 - Run `npm install` when extration is done
 
-##### <a name="v1.1.0-cli">v1.1.0</a>
+##### <a name="v110-cli">v1.1.0</a>
 - Added option to create dev version
 - Code refactoring
 
-##### <a name="v1.0.5-cli">v1.0.5</a>
+##### <a name="v105-cli">v1.0.5</a>
 - Check if project directory exists
 
-##### <a name="v1.0.4-cli">v1.0.4</a>
+##### <a name="v104-cli">v1.0.4</a>
 - Added shebang
 
-##### <a name="v1.0.3-cli">v1.0.3</a>
+##### <a name="v103-cli">v1.0.3</a>
 - Fixed path to bin and main file
 
-##### <a name="v1.0.2-cli">v1.0.2</a>
+##### <a name="v102-cli">v1.0.2</a>
 - Added create and usage commands
 
 ## Author

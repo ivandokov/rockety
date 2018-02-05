@@ -166,7 +166,7 @@ Additionally you have type tasks which combine all source tasks for the certain 
 ##### v5.1.0
 - Fixed gitignore in public/assets to ignore only the build output files
 - Removed http-equiv meta from index.html
-- Refactored watch directive to be more universal and fixed [#16].
+- Refactored watch directive to be more universal and fixed [#16](https://github.com/ivandokov/rockety/issues/16).
 
 ##### v5.0.2
 - Updated packages (Bootstrap 4, etc)
@@ -183,7 +183,7 @@ Additionally you have type tasks which combine all source tasks for the certain 
 ##### v4.0.0
 - Minimal Node.js version required is 6.12.2.
 - Gulpfile.js syntax is updated to ES6.
-- Replaced gulp-connect with express and added ejs support for .html files (closing #13).
+- Replaced gulp-connect with express and added ejs support for .html files and closing [#13](https://github.com/ivandokov/rockety/issues/13).
 - Handled error when syntax of less/sass is wrong and crashes the watch process.
 - Use sass by default.
 - Refactoring.
@@ -292,7 +292,7 @@ Additionally you have type tasks which combine all source tasks for the certain 
 - Stopped JSHint of breaking the build
 - Declated all js modules as globals for JSHint so it doesn't complain
 - Added grunt build task
-- Merged PR [#1] which fixes shapes.svg bug
+- Merged PR [#1](https://github.com/ivandokov/rockety/pull/1) which fixes shapes.svg bug
 
 ##### v2.0.0
 - Added [load-grunt-tasks]
@@ -437,14 +437,17 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 
 
 [installation]: #installation
+[usage]: #usage
+[configuration]: #configuration
+[options]: #options
 [css]: #css
 [js]: #js
 [configuration file]: #rocketyyml
 [rockety.yml]: #rocketyyml
-[gulp]: https://gulpjs.com
-[yarn]: https://yarnpkg.com
 [changelog]: http://ivandokov.github.io/rockety/#changelog
 [changelog cli]: http://ivandokov.github.io/rockety/#changelog-cli
+[gulp]: https://gulpjs.com
+[yarn]: https://yarnpkg.com
 [ejs]: http://ejs.co
 [downloads-image]: https://img.shields.io/npm/dm/rockety.svg
 [npm-url]: https://www.npmjs.com/package/rockety

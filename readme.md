@@ -22,9 +22,9 @@ This setup comes with:
 - SVG symbols sprite
 - Livereload
 
-[Installation]
-[Changelog]
-[Changelog CLI]
+[Installation]  
+[Changelog]  
+[Changelog CLI]  
 
 ## Installation
 Rockety comes with a Node.js installer for easier usage.

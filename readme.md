@@ -23,8 +23,11 @@ This setup comes with:
 - Livereload
 
 [Installation]  
+[Usage]  
+[Configuration]  
+[Options]  
 [Changelog]  
-[Changelog CLI]  
+[Changelog CLI]    
 
 ## Installation
 Rockety comes with a Node.js installer for easier usage.

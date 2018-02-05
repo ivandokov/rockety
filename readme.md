@@ -318,61 +318,61 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 ##### v1.0.0
 - Initial version
 
-## Changelog for Rockety-cli
+## <a name="changelog-cli">Changelog for Rockety-cli</a>
 
-##### cli v1.11.1
+##### <a name="v1.11.1-cli">v1.11.1</a>
 - Fixed issue with `proxy()` which was breaking commands send to `gulp`
 
-##### cli v1.11.0
+##### <a name="v1.11.0-cli">v1.11.0</a>
 - Bumped node version to 6.12.2
 - Syntax updated to ES6
 
-##### cli v1.10.1
+##### <a name="v1.10.1-cli">v1.10.1</a>
 - Updated help
 
-##### cli v1.10.0
+##### <a name="v1.10.0-cli">v1.10.0</a>
 - Fixed bug with `rockety create`
 - Removed Bower because `rockety-assets` is a node module
 
-##### cli v1.9.0
+##### <a name="v1.9.0-cli">v1.9.0</a>
 - Better error handling for proxy commands when executing outside Rockety project folder
 - Fix in help
 - Allow project creation in current folder when using "." for project name/path
 
-##### cli v1.8.0
+##### <a name="v1.8.0-cli">v1.8.0</a>
 - Fixed env for `exec/execSync/spawn` which fixes the proxy function for using: `rockety build/watch/etc`
 
-##### cli v1.7.0
+##### <a name="v1.7.0-cli">v1.7.0</a>
 - Install dependencies with yarn if it is available
 
-##### cli v1.6.1
+##### <a name="v1.6.1-cli">v1.6.1</a>
 - `--dev` flag downloads master branch instead of dev branch
 - Removed cleanup code because it is handled by gitattributes now
 
-##### cli v1.6.0
+##### <a name="v1.6.0-cli">v1.6.0</a>
 - Renamed install argument to create because it makes more sense
 
-##### cli v1.5.1
+##### <a name="v1.5.1-cli">v1.5.1</a>
 - Fixed error when creating cache dir
 - Fixed update message
 
-##### cli v1.5.0
+##### <a name="v1.5.0-cli">v1.5.0</a>
 - Cache Rockety version locally to declearse install time for next projects
 
-##### cli v1.4.4
+##### <a name="v1.4.4-cli">v1.4.4</a>
 - Started changelog for `rockety-cli`
 - Updated readme
 
-##### cli v1.4.3
+##### <a name="v1.4.3-cli">v1.4.3</a>
 - Updated readme
 
-##### cli v1.4.2
+##### <a name="v1.4.2-cli">v1.4.2</a>
 - Exit if directory exists
 
-##### cli v1.4.1
+##### <a name="v1.4.1-cli">v1.4.1</a>
 - Fixed path for `find()`
 
-##### cli v1.4.0
+##### <a name="v1.4.0-cli">v1.4.0</a>
 - Proxy arguments to Gulp
 - Default command is replaced with create one: `rockety create [project-name]`
 - Fixed bug when wrong extracted folder name is selected and removed `/bin/bash` alias from `exec`
@@ -380,52 +380,52 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 - Added help
 - Refactoring
 
-##### cli v1.3.2
+##### <a name="v1.3.2-cli">v1.3.2</a>
 - Fixed message for update
 
-##### cli v1.3.1
+##### <a name="v1.3.1-cli">v1.3.1</a>
 - Show errors from npm and bower if any
 - Updated message for npm and bower install
 
-##### cli v1.3.0
+##### <a name="v1.3.0-cli">v1.3.0</a>
 - Check for updates before doing anything else
 - Colorful messages
 - Spinner when running bower/npm install
 
-##### cli v1.2.5
+##### <a name="v1.2.5-cli">v1.2.5</a>
 - Changed exec shell to bash
 - Combined log messages for npm and bower
 - Move cleanup before npm/bower install
 
-##### cli v1.2.4
+##### <a name="v1.2.4-cli">v1.2.4</a>
 - Removed changelog from cleanup list
 
-##### cli v1.2.3
+##### <a name="v1.2.3-cli">v1.2.3</a>
 - Fixed paths for cleanup and exec for global install of cli
 
-##### cli v1.2.1
+##### <a name="v1.2.1-cli">v1.2.1</a>
 - Run `bower install`
 - Add `public/.gitignore` to cleanup list
 
-##### cli v1.2.0
+##### <a name="v1.2.0-cli">v1.2.0</a>
 - Clean up unnecessary files from project folder after extraction
 - More code refactoring
 - Run `npm install` when extration is done
 
-##### cli v1.1.0
+##### <a name="v1.1.0-cli">v1.1.0</a>
 - Added option to create dev version
 - Code refactoring
 
-##### cli v1.0.5
+##### <a name="v1.0.5-cli">v1.0.5</a>
 - Check if project directory exists
 
-##### cli v1.0.4
+##### <a name="v1.0.4-cli">v1.0.4</a>
 - Added shebang
 
-##### cli v1.0.3
+##### <a name="v1.0.3-cli">v1.0.3</a>
 - Fixed path to bin and main file
 
-##### cli v1.0.2
+##### <a name="v1.0.2-cli">v1.0.2</a>
 - Added create and usage commands
 
 ## Author

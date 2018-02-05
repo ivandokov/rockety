@@ -8,6 +8,13 @@ This is a flexible ready to use front-end development toolbox based on [Gulp].
 You do not have to edit the gulpfile.js and mess with JavaScript.
 It is made super easy to use with a single **yml** configuration file.
 
+[Installation]  
+[Usage]  
+[Configuration]  
+[Options]  
+[Changelog]  
+[Changelog CLI]  
+
 ## What is included
 
 This setup comes with:
@@ -20,14 +27,7 @@ This setup comes with:
 - Babel & Webpack for ES2015+ transpiling
 - JS minifier/uglifier
 - SVG symbols sprite
-- Livereload
-
-[Installation]  
-[Usage]  
-[Configuration]  
-[Options]  
-[Changelog]  
-[Changelog CLI]    
+- Livereload  
 
 ## Installation
 Rockety comes with a Node.js installer for easier usage.

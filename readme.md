@@ -8,6 +8,7 @@ This is a flexible ready to use front-end development toolbox based on [Gulp].
 You do not have to edit the gulpfile.js and mess with JavaScript.
 It is made super easy to use with a single **yml** configuration file.
 
+[What is included]  
 [Installation]  
 [Usage]  
 [Configuration]  
@@ -438,7 +439,7 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 [Martin Vatev](https://dribbble.com/Vatev)
 
 
-
+[what is included]: #what-is-included
 [installation]: #installation
 [usage]: #usage
 [configuration]: #configuration

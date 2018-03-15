@@ -167,6 +167,9 @@ There are also separate tasks for each source configuration. For example you can
 Additionally you have type tasks which combine all source tasks for the certain type. For example you can build all css related tasks for all sources by executing `rockety css`
 
 ## Changelog
+##### v5.1.1
+- Fixed watchers to include subdirectories
+
 ##### v5.1.0
 - Fixed gitignore in public/assets to ignore only the build output files
 - Removed http-equiv meta from index.html

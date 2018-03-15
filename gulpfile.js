@@ -164,9 +164,9 @@ var watch = () => {
     for (const sourceName of sources) {
         const sourceConfig = config.sources[sourceName];
 
-        gulp.watch(`${sourceConfig.src}/css/*.{scss,less}`, [`css:${sourceName}`]);
-        gulp.watch(`${sourceConfig.src}/svg/*.svg`, [`svg:${sourceName}`]);
-        gulp.watch(`${sourceConfig.src}/js/*.js`, [`js:${sourceName}`]);
+        gulp.watch(`${sourceConfig.src}/css/**/*.{scss,less}`, [`css:${sourceName}`]);
+        gulp.watch(`${sourceConfig.src}/svg/**/*.svg`, [`svg:${sourceName}`]);
+        gulp.watch(`${sourceConfig.src}/js/**/*.js`, [`js:${sourceName}`]);
     }
 
     for (const watcher of (config.options.watch || [])) {

@@ -24,8 +24,7 @@ sources:
         dest: public/assets
         css:
             main: main.scss
-            vendor:
-                - node_modules/bootstrap/dist/css/bootstrap.min.css
+            #vendor:
         js:
             main: main.js
             vendor:

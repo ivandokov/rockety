@@ -167,6 +167,11 @@ There are also separate tasks for each source configuration. For example you can
 Additionally you have type tasks which combine all source tasks for the certain type. For example you can build all css related tasks for all sources by executing `rockety css`
 
 ## Changelog
+##### v5.2.2
+- Updated some packages
+- Ran `npm audit fix`
+- Added .npmignore
+
 ##### v5.2.1
 - Ignored shapes.svg in the output directory
 

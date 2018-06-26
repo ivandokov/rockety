@@ -1,0 +1,27 @@
+* {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  height: 100%;
+  @include rem-baseline;
+
+  @include media-breakpoint-down(lg) {
+    @include rem-baseline(85%);
+  }
+
+  @include media-breakpoint-only(smm) {
+    @include rem-baseline(75%);
+  }
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #ffffff;
+  color: $colorFont;
+}

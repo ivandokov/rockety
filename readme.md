@@ -167,6 +167,16 @@ There are also separate tasks for each source configuration. For example you can
 Additionally you have type tasks which combine all source tasks for the certain type. For example you can build all css related tasks for all sources by executing `rockety css`
 
 ## Changelog
+##### v5.2.1
+- Ignored shapes.svg in the output directory
+
+##### v5.2.0
+- Moved Bootstrap styles from vendor to compiled SCSS files for variable overrides beacuse this is what is required usually. Nobody is using the default Bootstrap styles.
+- Updated to Bootstrap 4.1.0
+
+##### v5.1.1
+- Fixed watchers to include subdirectories
+
 ##### v5.1.0
 - Fixed gitignore in public/assets to ignore only the build output files
 - Removed http-equiv meta from index.html

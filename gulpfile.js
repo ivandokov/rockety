@@ -60,9 +60,7 @@ const svg = src => {
         .pipe(svgstore({inlineSvg: inline}))
         .pipe(cheerio({
             run: $ => {
-                if (!inline) {
-                    $('svg').attr('style', 'display:none');
-                }
+                $('svg').attr('style', 'display:none');
             },
             parserOptions: {xmlMode: true}
         }))

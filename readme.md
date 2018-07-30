@@ -466,8 +466,8 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 [js]: #js
 [configuration file]: #rocketyyml
 [rockety.yml]: #rocketyyml
-[changelog]: http://ivandokov.github.io/rockety/#changelog
-[changelog cli]: http://ivandokov.github.io/rockety/#changelog-cli
+[changelog]: #changelog
+[changelog cli]: #changelog-cli
 [gulp]: https://gulpjs.com
 [yarn]: https://yarnpkg.com
 [ejs]: http://ejs.co

@@ -167,8 +167,11 @@ There are also separate tasks for each source configuration. For example you can
 Additionally you have type tasks which combine all source tasks for the certain type. For example you can build all css related tasks for all sources by executing `rockety css`
 
 ## Changelog
-##### v5.2.4
+##### v5.2.5
 - Added [bootstrap-font-sizes] as dependency
+
+##### v5.2.4
+- Messed up the releases
 
 ##### v5.2.3
 - Fixed svg store `inlineSvg` option to always add `display:none` to the svg

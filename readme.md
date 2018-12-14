@@ -167,6 +167,9 @@ There are also separate tasks for each source configuration. For example you can
 Additionally you have type tasks which combine all source tasks for the certain type. For example you can build all css related tasks for all sources by executing `rockety css`
 
 ## Changelog
+##### v5.2.4
+- Added [bootstrap-font-sizes] as dependency
+
 ##### v5.2.3
 - Fixed svg store `inlineSvg` option to always add `display:none` to the svg
 
@@ -489,5 +492,6 @@ _ Added support for SVG sprites. Take a look at the example in `src/front/less/s
 [grunt-contrib-uglify]: https://www.npmjs.com/package/grunt-contrib-uglify
 [grunt-contrib-jshint]: https://www.npmjs.com/package/grunt-contrib-jshint
 [grunt-svgstore]: https://www.npmjs.com/package/grunt-svgstore
+[bootstrap-font-sizes]: https://www.npmjs.com/package/bootstrap-font-sizes
 
 

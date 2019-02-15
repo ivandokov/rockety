@@ -114,7 +114,7 @@ const js = src => {
                     exclude: /(node_modules|bower_components)/,
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'stage-0']
+                        presets: ['babel-preset-env', 'babel-preset-stage-0'].map(require.resolve)
                     }
                 }
             ]

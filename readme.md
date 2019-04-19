@@ -1,7 +1,9 @@
 # Rockety
 
-# Warning
-**This project is unmaintained at the moment due to its similarity with Laravel Mix. There is a slight chance the project will get updated in the future.**
+## Warning
+**This project is unmaintained at the moment due to its similarity with [Laravel Mix](https://laravel-mix.com/). There is a slight chance the project will get updated in the future.** 
+
+---
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][npm-url]

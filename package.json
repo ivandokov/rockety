@@ -27,7 +27,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-babel": "^7.0.1",
     "gulp-cheerio": "^0.6.3",
     "gulp-clean-css": "^3.9.4",
